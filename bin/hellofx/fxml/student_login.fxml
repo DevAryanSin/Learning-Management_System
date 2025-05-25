@@ -18,5 +18,6 @@
     <HBox spacing="10" alignment="CENTER">
         <Button text="Back" onAction="#onBack"/>
         <Button text="Login" onAction="#onLogin"/>
+        <Button text="Create Account" onAction="#showCreateAccount"/>
     </HBox>
 </VBox>

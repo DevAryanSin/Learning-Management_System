@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS "Student" (
     "campus" varchar NOT NULL,
     "contact" varchar,
     "gender" char NOT NULL,
-    "email" varchar,
-    "password" varchar DEFAULT 'password'
+    "email" varchar UNIQUE NOT NULL,
+    "password" varchar NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "Teacher" (
