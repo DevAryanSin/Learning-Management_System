@@ -64,6 +64,15 @@ A modern, modular, and professional Learning Management System (LMS) built with 
 
 
 
+## Database Connectivity
+*jdbc for connectivity with MySQL*
+![image](https://github.com/user-attachments/assets/6951ab7e-7e2a-46c7-9dd5-3d78d4875874)
+
+## Database
+***lms.db storing credentials***
+![image](https://github.com/user-attachments/assets/ff4c8ccb-67c4-45a4-a266-82c318b26b7b)
+
+
 
 
 ---
