@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.TeacherAttendanceController"
+      spacing="18" alignment="CENTER" style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
+    <Label text="Give Attendance" style="-fx-font-size: 24px; -fx-text-fill: #2d75e8;"/>
+    <HBox spacing="10">
+        <ComboBox fx:id="courseCombo" promptText="Select Course"/>
+        <DatePicker fx:id="datePicker"/>
+    </HBox>
+    <TableView fx:id="attendanceTable" prefWidth="800">
+        <columns>
+            <TableColumn fx:id="rollColumn" text="Roll Number"/>
+            <TableColumn fx:id="nameColumn" text="Name"/>
+            <TableColumn fx:id="statusColumn" text="Status"/>
+        </columns>
+    </TableView>
+    <Button fx:id="saveButton" text="Save Attendance"/>
+</VBox>
