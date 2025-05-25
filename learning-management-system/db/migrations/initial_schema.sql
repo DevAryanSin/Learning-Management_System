@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS "Student" (
-    "rollNumber" varchar PRIMARY KEY,
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "rollNumber" varchar UNIQUE NOT NULL,
     "batch" int NOT NULL,
     "cgpa" float,
     "name" varchar NOT NULL,
@@ -13,9 +14,9 @@ CREATE TABLE IF NOT EXISTS "Student" (
 );
 
 CREATE TABLE IF NOT EXISTS "Teacher" (
-    "ID" int PRIMARY KEY,
+    "ID" INTEGER PRIMARY KEY AUTOINCREMENT,
     "salary" integer,
-    "email" varchar,
+    "email" varchar UNIQUE NOT NULL,
     "name" varchar NOT NULL,
     "dob" date NOT NULL,
     "discipline" varchar NOT NULL,
@@ -25,21 +26,45 @@ CREATE TABLE IF NOT EXISTS "Teacher" (
     "password" varchar DEFAULT 'password'
 );
 
-CREATE TABLE IF NOT EXISTS "Attendance" (
-    "date" date,
-    "status" char DEFAULT null,
-    "rollnum" varchar,
-    PRIMARY KEY("rollnum", "date"),
-    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE
+-- Courses table: teachers can edit, students can enroll
+CREATE TABLE IF NOT EXISTS "Course" (
+    "courseCode" varchar PRIMARY KEY,
+    "title" varchar NOT NULL,
+    "description" text,
+    "teacherID" INTEGER,
+    FOREIGN KEY("teacherID") REFERENCES "Teacher"("ID") ON DELETE SET NULL
 );
 
+-- Enrollment: students enroll in courses
+CREATE TABLE IF NOT EXISTS "Enrollment" (
+    "rollnum" varchar,
+    "courseCode" varchar,
+    "enrollDate" date DEFAULT CURRENT_DATE,
+    PRIMARY KEY("rollnum", "courseCode"),
+    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE,
+    FOREIGN KEY("courseCode") REFERENCES "Course"("courseCode") ON DELETE CASCADE
+);
+
+-- Attendance: teachers can edit, students can view
+CREATE TABLE IF NOT EXISTS "Attendance" (
+    "date" date,
+    "rollnum" varchar,
+    "courseCode" varchar,
+    "status" char DEFAULT null,
+    PRIMARY KEY("rollnum", "courseCode", "date"),
+    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE,
+    FOREIGN KEY("courseCode") REFERENCES "Course"("courseCode") ON DELETE CASCADE
+);
+
+-- Marks: teachers can edit, students can view
 CREATE TABLE IF NOT EXISTS "Marks" (
     "rollnum" varchar,
     "courseCode" varchar,
     "semTitle" varchar,
     "marksObtained" int,
     PRIMARY KEY("rollnum", "courseCode", "semTitle"),
-    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE
+    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE,
+    FOREIGN KEY("courseCode") REFERENCES "Course"("courseCode") ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "Grades" (
@@ -48,5 +73,6 @@ CREATE TABLE IF NOT EXISTS "Grades" (
     "semTitle" varchar,
     "grade" char,
     PRIMARY KEY("rollnum", "courseCode", "semTitle"),
-    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE
+    FOREIGN KEY("rollnum") REFERENCES "Student"("rollNumber") ON DELETE CASCADE,
+    FOREIGN KEY("courseCode") REFERENCES "Course"("courseCode") ON DELETE CASCADE
 );

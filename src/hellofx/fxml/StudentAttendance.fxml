@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.StudentAttendanceController"
+      spacing="18" alignment="CENTER" style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
+    <Label text="Attendance Record" style="-fx-font-size: 24px; -fx-text-fill: #2d75e8;"/>
+    <TableView fx:id="attendanceTable" prefWidth="800">
+        <columns>
+            <TableColumn fx:id="courseColumn" text="Course"/>
+            <TableColumn fx:id="dateColumn" text="Date"/>
+            <TableColumn fx:id="statusColumn" text="Status"/>
+        </columns>
+    </TableView>
+</VBox>
