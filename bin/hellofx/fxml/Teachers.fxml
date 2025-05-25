@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="mainPane" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.TeachersController">
-    <children>
-        <Pane prefHeight="139.0" prefWidth="1102.0" style="-fx-background-color: #E87D2D;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label layoutX="73.0" layoutY="30.0" text="Teachers" textFill="WHITE">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
-            <Label layoutX="79.0" layoutY="91.0" text="School Management" textFill="WHITE">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Label layoutX="50.0" layoutY="50.0" text="Teacher Dashboard"/>
-      <!-- You can add more UI here -->
-    </children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.TeachersController" fx:id="mainPane" prefWidth="1024" prefHeight="640">
+    <VBox spacing="30" alignment="TOP_CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
+        <Label text="Dashboard"
+               style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #00337C; -fx-padding: 30 0 10 0;"/>
+        <GridPane hgap="40" vgap="40" alignment="CENTER">
+            <!-- Top row: 3 boxes -->
+            <VBox spacing="16" alignment="CENTER"
+                  style="-fx-background-color: #23262F; -fx-background-radius: 16; -fx-padding: 32; -fx-pref-width: 200; -fx-pref-height: 160;">
+                <Label text="Edit Course" style="-fx-font-size: 20px; -fx-text-fill: #00337C;"/>
+                <Button fx:id="editCourseBtn" text="Open"
+                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 8;"/>
+            </VBox>
+            <VBox spacing="16" alignment="CENTER"
+                  style="-fx-background-color: #23262F; -fx-background-radius: 16; -fx-padding: 32; -fx-pref-width: 200; -fx-pref-height: 160;"
+                  GridPane.columnIndex="1">
+                <Label text="Marks" style="-fx-font-size: 20px; -fx-text-fill: #00337C;"/>
+                <Button fx:id="marksBtn" text="Open"
+                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 8;"/>
+            </VBox>
+            <VBox spacing="16" alignment="CENTER"
+                  style="-fx-background-color: #23262F; -fx-background-radius: 16; -fx-padding: 32; -fx-pref-width: 200; -fx-pref-height: 160;"
+                  GridPane.columnIndex="2">
+                <Label text="Attendance" style="-fx-font-size: 20px; -fx-text-fill: #00337C;"/>
+                <Button fx:id="attendanceBtn" text="Open"
+                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 8;"/>
+            </VBox>
+            <!-- Bottom row: 2 bigger boxes, side by side -->
+            <VBox spacing="20" alignment="CENTER"
+                  style="-fx-background-color: #23262F; -fx-background-radius: 16; -fx-padding: 40; -fx-pref-width: 300; -fx-pref-height: 180;"
+                  GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <Label text="Manage Students" wrapText="true" maxWidth="300"
+                       style="-fx-font-size: 22px; -fx-text-fill: #00337C;"/>
+                <Button fx:id="manageStudentsBtn" text="Open"
+                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 8;"/>
+            </VBox>
+            <VBox spacing="20" alignment="CENTER"
+                  style="-fx-background-color: #23262F; -fx-background-radius: 16; -fx-padding: 40; -fx-pref-width: 300; -fx-pref-height: 180;"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <Label text="Generate Report" wrapText="true" maxWidth="300"
+                       style="-fx-font-size: 22px; -fx-text-fill: #00337C;"/>
+                <Button fx:id="reportBtn" text="Open"
+                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 8;"/>
+            </VBox>
+        </GridPane>
+    </VBox>
 </AnchorPane>

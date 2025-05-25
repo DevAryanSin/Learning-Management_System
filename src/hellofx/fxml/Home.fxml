@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="943.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.Controller">
    <children>
-      <Pane prefHeight="173.0" prefWidth="980.0" style="-fx-background-color: #2D75E8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="173.0" prefWidth="980.0" style="-fx-background-color: #00337C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="130.0" layoutY="44.0" text="KeepToo" textFill="WHITE">
                <font>
@@ -40,32 +40,32 @@
          <children>
             <Button fx:id="btnDashboard" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="181.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Dashboard">
                <graphic>
-                  <FontIcon iconLiteral="fa-home" iconColor="#2d75e8" iconSize="50"/>
+                  <FontIcon iconLiteral="fa-home" iconColor="#00337C" iconSize="50"/>
                </graphic>
             </Button>
             <Button fx:id="btnStudents" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="181.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Students" GridPane.columnIndex="1">
                <graphic>
-                  <FontIcon iconLiteral="fa-group" iconColor="#2d75e8" iconSize="50"/>
+                  <FontIcon iconLiteral="fa-group" iconColor="#00337C" iconSize="50"/>
                </graphic>
             </Button>
             <Button fx:id="btn_Timetable" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="181.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Timetable" GridPane.columnIndex="2">
                <graphic>
-                  <FontIcon iconLiteral="fa-calendar-check-o" iconColor="#2d75e8" iconSize="50"/>
+                  <FontIcon iconLiteral="fa-calendar-check-o" iconColor="#00337C" iconSize="50"/>
                </graphic>
             </Button>
             <Button fx:id="btnSettings" contentDisplay="TOP" mnemonicParsing="false" prefHeight="181.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Settings" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <graphic>
-                  <FontIcon iconLiteral="fa-sliders" iconColor="#2d75e8" iconSize="50"/>
+                  <FontIcon iconLiteral="fa-sliders" iconColor="#00337C" iconSize="50"/>
                </graphic>
             </Button>
             <Button fx:id="btnUpdate" contentDisplay="TOP" mnemonicParsing="false" prefHeight="181.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <graphic>
-                  <FontIcon iconLiteral="fa-exchange" iconColor="#2d75e8" iconSize="50"/>
+                  <FontIcon iconLiteral="fa-exchange" iconColor="#00337C" iconSize="50"/>
                </graphic>
             </Button>
             <Button fx:id="btnClasses" contentDisplay="TOP" mnemonicParsing="false" prefHeight="181.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Classes" GridPane.rowIndex="1">
                <graphic>
-                  <FontIcon iconLiteral="fa-indent" iconColor="#2d75e8" iconSize="50"/>
+                  <FontIcon iconLiteral="fa-indent" iconColor="#00337C" iconSize="50"/>
                </graphic>
             </Button>
          </children>

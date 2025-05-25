@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.TeacherAttendanceController"
       spacing="18" alignment="CENTER" style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
-    <Label text="Give Attendance" style="-fx-font-size: 24px; -fx-text-fill: #2d75e8;"/>
+    <Label text="Give Attendance" style="-fx-font-size: 24px; -fx-text-fill: #00337C;"/>
     <HBox spacing="10">
         <ComboBox fx:id="courseCombo" promptText="Select Course"/>
         <DatePicker fx:id="datePicker"/>
@@ -16,4 +16,6 @@
         </columns>
     </TableView>
     <Button fx:id="saveButton" text="Save Attendance"/>
+    <Button text="Back" onAction="#goBack"
+        style="-fx-background-color: #353945; -fx-text-fill: #00337C; -fx-font-size: 16px; -fx-background-radius: 8;"/>
 </VBox>

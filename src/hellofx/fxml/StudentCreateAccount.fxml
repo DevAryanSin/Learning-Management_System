@@ -12,20 +12,20 @@
               AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
             <children>
                 <Label text="Create Student Account"
-                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2d75e8;"/>
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #00337C;"/>
                 <TextField fx:id="nameField" promptText="Full Name"
                            style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
                 <DatePicker fx:id="dobPicker" promptText="Date of Birth"
-                            style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
+                            style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #00337C;"/>
                 <TextField fx:id="createEmailField" promptText="Email"
                            style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
                 <PasswordField fx:id="createPasswordField" promptText="Password"
                                style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
                 <Button text="Create Account"
-                        style="-fx-background-color: #2d75e8; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 40;"
+                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 40;"
                         onAction="#onCreateAccount"/>
                 <Button text="Back to Login"
-                        style="-fx-background-color: transparent; -fx-text-fill: #2d75e8; -fx-font-size: 15px; -fx-font-weight: bold;"
+                        style="-fx-background-color: transparent; -fx-text-fill: #00337C; -fx-font-size: 15px; -fx-font-weight: bold;"
                         onAction="#onBack"/>
             </children>
             <padding>

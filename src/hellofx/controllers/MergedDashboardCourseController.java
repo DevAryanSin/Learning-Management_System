@@ -134,13 +134,13 @@ public class MergedDashboardCourseController implements Initializable {
         int col = 0, row = 0;
         for (Course course : courses) {
             VBox vbox = new VBox(10);
-            vbox.setStyle("-fx-border-color: #2D75E8; -fx-padding: 10;");
+            vbox.setStyle("-fx-border-color: #00337C; -fx-padding: 10;");
             Label titleLabel = new Label(course.getTitle());
             titleLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #F7FAFC;");
             Button enrollBtn = new Button("Enroll");
             Button infoBtn = new Button("View Info");
 
-            enrollBtn.setStyle("-fx-background-color: #2D75E8; -fx-text-fill: #F7FAFC; -fx-background-radius: 6;");
+            enrollBtn.setStyle("-fx-background-color: #00337C; -fx-text-fill: #F7FAFC; -fx-background-radius: 6;");
             infoBtn.setStyle("-fx-background-color: #353945; -fx-text-fill: #F7FAFC; -fx-background-radius: 6;");
 
             enrollBtn.setOnAction(e -> {
@@ -154,7 +154,7 @@ public class MergedDashboardCourseController implements Initializable {
             });
 
             vbox.getChildren().addAll(titleLabel, enrollBtn, infoBtn);
-            vbox.setStyle("-fx-background-color: #181A20; -fx-border-color: #2D75E8; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16;");
+            vbox.setStyle("-fx-background-color: #181A20; -fx-border-color: #00337C; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16;");
             courseGrid.add(vbox, col, row);
 
             col++;

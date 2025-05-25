@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="944.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.DashboardController">
    <children>
-      <Pane layoutY="-2.0" prefHeight="139.0" prefWidth="950.0" style="-fx-background-color: #2D75E8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="-2.0">
+      <Pane layoutY="-2.0" prefHeight="139.0" prefWidth="950.0" style="-fx-background-color: #00337C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="-2.0">
          <children>
             <Label layoutX="73.0" layoutY="30.0" text="Dashboard" textFill="WHITE">
                <font>

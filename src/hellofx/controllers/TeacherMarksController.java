@@ -1,12 +1,15 @@
 package hellofx.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.collections.*;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import javafx.scene.layout.AnchorPane;
 
 public class TeacherMarksController implements Initializable {
     @FXML private ComboBox<String> courseCombo;
@@ -38,5 +41,16 @@ public class TeacherMarksController implements Initializable {
         marksColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getMarks()).asObject());
         marksTable.setItems(students);
         // Load courses, semesters, and students as needed
+    }
+    
+    @FXML
+    private void goBack() {
+        try {
+            Parent view = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Teachers.fxml"));
+            AnchorPane root = (AnchorPane) marksTable.getScene().getRoot();
+            root.getChildren().setAll(view);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

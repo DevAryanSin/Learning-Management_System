@@ -44,7 +44,7 @@ public class CourseViewerController implements Initializable {
         int col = 0, row = 0;
         for (Course course : courses) {
             VBox vbox = new VBox(10);
-            vbox.setStyle("-fx-border-color: #2D75E8; -fx-padding: 10;");
+            vbox.setStyle("-fx-border-color: #00337C; -fx-padding: 10;");
             Label titleLabel = new Label(course.getTitle());
             titleLabel.setStyle("-fx-font-size: 18px;");
             Button enrollBtn = new Button("Enroll");

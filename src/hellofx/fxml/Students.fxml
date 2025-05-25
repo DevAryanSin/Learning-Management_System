@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.StudentsController">
    <children>
-      <Pane prefHeight="139.0" prefWidth="1102.0" style="-fx-background-color: #2D75E8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="139.0" prefWidth="1102.0" style="-fx-background-color: #00337C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="73.0" layoutY="30.0" text="Students" textFill="WHITE">
                <font>
@@ -37,8 +37,8 @@
       </TableView>
       <Pane layoutX="20.0" layoutY="159.0" prefHeight="33.0" prefWidth="322.0">
          <children>
-            <TextField prefHeight="25.0" prefWidth="322.0" style="-fx-border-color: #2D75E8;" />
-            <FontIcon iconLiteral="fa-search" iconColor="#2d75e8" iconSize="18" layoutX="302.0" layoutY="18.0" />
+            <TextField prefHeight="25.0" prefWidth="322.0" style="-fx-border-color: #00337C;" />
+            <FontIcon iconLiteral="fa-search" iconColor="#00337C" iconSize="18" layoutX="302.0" layoutY="18.0" />
          </children>
       </Pane>
    </children>

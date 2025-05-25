@@ -1,9 +1,12 @@
 package hellofx.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.collections.*;
+import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -41,4 +44,15 @@ public class TeacherAttendanceController implements Initializable {
     }
 
     // Implement methods to load students, save attendance, etc.
+
+    @FXML
+    private void goBack() {
+        try {
+            Parent view = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Teachers.fxml"));
+            AnchorPane root = (AnchorPane) attendanceTable.getScene().getRoot();
+            root.getChildren().setAll(view);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

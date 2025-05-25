@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" spacing="32.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.WelcomeController"
-      style="-fx-background-color: #181A20; -fx-min-width:1024; -fx-min-height:640;">
+      style="-fx-background-color: linear-gradient(to bottom, #23395d, #181A20); -fx-min-width:1024; -fx-min-height:640;">
     <padding>
         <Insets top="60" right="60" bottom="60" left="60"/>
     </padding>
@@ -18,9 +18,9 @@
     <HBox alignment="CENTER" spacing="40">
         <Button text="Student Login"
                 onAction="#onStudentLogin"
-                style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 18 48; -fx-effect: dropshadow(gaussian, #111217, 8, 0.2, 0, 2);"/>
+                style="-fx-background-radius: 8; -fx-background-color: #00337C; -fx-text-fill: #F7FAFC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 18 48; -fx-effect: dropshadow(gaussian, #111217, 8, 0.2, 0, 2);"/>
         <Button text="Teacher Login"
                 onAction="#onTeacherLogin"
-                style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 18 48; -fx-effect: dropshadow(gaussian, #111217, 8, 0.2, 0, 2);"/>
+                style="-fx-background-radius: 8; -fx-background-color: #00337C; -fx-text-fill: #F7FAFC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 18 48; -fx-effect: dropshadow(gaussian, #111217, 8, 0.2, 0, 2);"/>
     </HBox>
 </VBox>
