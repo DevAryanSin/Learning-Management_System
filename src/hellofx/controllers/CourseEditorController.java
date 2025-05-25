@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -15,6 +17,14 @@ public class CourseEditorController implements Initializable {
 
     @FXML
     private GridPane courseGrid;
+    @FXML
+    private TableView<CoursePerformance> performanceTable;
+    @FXML
+    private TableColumn<CoursePerformance, String> courseNameColumn;
+    @FXML
+    private TableColumn<CoursePerformance, Integer> completionColumn;
+    @FXML
+    private TableColumn<CoursePerformance, Integer> lessonsColumn;
 
     public static class Course {
         private final String title;
@@ -30,6 +40,22 @@ public class CourseEditorController implements Initializable {
         public String getInfo() { return info; }
         public void setInfo(String info) { this.info = info; }
         public List<String> getEnrolledStudents() { return enrolledStudents; }
+    }
+
+    // Define CoursePerformance class
+    public static class CoursePerformance {
+        private final String courseName;
+        private final int completion;
+        private final int lessons;
+
+        public CoursePerformance(String courseName, int completion, int lessons) {
+            this.courseName = courseName;
+            this.completion = completion;
+            this.lessons = lessons;
+        }
+        public String getCourseName() { return courseName; }
+        public int getCompletion() { return completion; }
+        public int getLessons() { return lessons; }
     }
 
     private final List<Course> courses = Arrays.asList(

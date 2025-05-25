@@ -50,7 +50,7 @@ public class StudentLoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Parent root = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Students.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/hellofx/fxml/MergedDashboardCourseView.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root, 1024, 640));
             } else {
@@ -132,7 +132,7 @@ public class StudentLoginController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/hellofx/fxml/StudentCreateAccount.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 400, 480));
+            stage.setScene(new Scene(root, 1024, 640)); // <-- keep window size constant
         } catch (Exception e) {
             e.printStackTrace();
         }

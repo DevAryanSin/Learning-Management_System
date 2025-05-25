@@ -6,13 +6,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.WelcomeController">
+<VBox alignment="CENTER" spacing="32.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.WelcomeController"
+      style="-fx-background-color: #181A20; -fx-min-width:1024; -fx-min-height:640;">
     <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
+        <Insets top="60" right="60" bottom="60" left="60"/>
     </padding>
-    <Label text="Welcome to the Learning Management System" style="-fx-font-size: 20px;"/>
-    <HBox alignment="CENTER" spacing="30">
-        <Button text="Login as Student" onAction="#onStudentLogin"/>
-        <Button text="Login as Teacher" onAction="#onTeacherLogin"/>
+    <Label text="Welcome to the Learning Management System"
+           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-padding: 0 0 8 0;"/>
+    <Label text="Empowering Education with Technology"
+           style="-fx-font-size: 18px; -fx-text-fill: #A0AEC0; -fx-padding: 0 0 24 0;"/>
+    <HBox alignment="CENTER" spacing="40">
+        <Button text="Student Login"
+                onAction="#onStudentLogin"
+                style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 18 48; -fx-effect: dropshadow(gaussian, #111217, 8, 0.2, 0, 2);"/>
+        <Button text="Teacher Login"
+                onAction="#onTeacherLogin"
+                style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 18 48; -fx-effect: dropshadow(gaussian, #111217, 8, 0.2, 0, 2);"/>
     </HBox>
 </VBox>
