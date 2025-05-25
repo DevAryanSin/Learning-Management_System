@@ -30,6 +30,41 @@ A modern, modular, and professional Learning Management System (LMS) built with 
 ## Screenshots
 
 > _Add screenshots of the main dashboards, course management, and reports here for best presentation._
+> **Welcome Page**
+![image](https://github.com/user-attachments/assets/29c7334c-bcbb-4a87-bca2-1cc473c37a06)
+> **Student Login**
+> ![image](https://github.com/user-attachments/assets/2bec90fd-8355-46e8-9217-50f723abae00)
+> **Credentials Authentication**
+> ![image](https://github.com/user-attachments/assets/a8f4b74c-8e60-4ef8-bce0-ef85e05d0a1a)
+> **Student Dashboard**
+> ![image](https://github.com/user-attachments/assets/be216237-5e95-4729-9808-d4a5195c7053)
+> **Course Enrollment**
+> ![image](https://github.com/user-attachments/assets/90026d38-2599-436f-b900-4dc61be52f1b)
+> **Teacher Login**
+> ![image](https://github.com/user-attachments/assets/562a5722-e656-42eb-b956-61e5b7c6fd02)
+> **Teacher Dashboard**
+> ![image](https://github.com/user-attachments/assets/33c08b01-f6a1-4b61-b7ac-2f70f3c3555c)
+> **Course Management**
+> ![image](https://github.com/user-attachments/assets/b9cec1ec-be3a-4b0a-894a-829039e6d5ed)
+> **Assign Marks**
+> ![image](https://github.com/user-attachments/assets/a07f8ce4-3f22-4859-88ce-ebdece7c82a3)
+> **Assign Attendance**
+> ![image](https://github.com/user-attachments/assets/60be7480-ddb7-4103-9866-753b76a959ac)
+> **Manage Students**
+> ![image](https://github.com/user-attachments/assets/940b94ad-3429-4b58-a913-9064c901d1e0)
+> **Generate Report**
+> ![image](https://github.com/user-attachments/assets/f0278615-947d-41d4-9a4e-16826cbe0762)
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
