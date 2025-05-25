@@ -17,7 +17,7 @@ public class TeachersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            Parent courseViewer = FXMLLoader.load(getClass().getResource("/hellofx/fxml/CourseViewer.fxml"));
+            Parent courseViewer = FXMLLoader.load(getClass().getResource("/hellofx/fxml/CourseEditor.fxml"));
             mainPane.getChildren().setAll(courseViewer);
         } catch (Exception e) {
             e.printStackTrace();
