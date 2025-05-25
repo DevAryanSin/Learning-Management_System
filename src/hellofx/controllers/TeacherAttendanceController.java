@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.collections.*;
 import javafx.scene.layout.AnchorPane;
 import java.net.URL;
-import java.sql.*;
+// import java.sql.*;
 import java.util.ResourceBundle;
 
 public class TeacherAttendanceController implements Initializable {
