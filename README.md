@@ -29,7 +29,6 @@ A modern, modular, and professional Learning Management System (LMS) built with 
 
 ## Screenshots
 
-> _Add screenshots of the main dashboards, course management, and reports here for best presentation._
 > **Welcome Page**
 ![image](https://github.com/user-attachments/assets/29c7334c-bcbb-4a87-bca2-1cc473c37a06)
 > **Student Login**
