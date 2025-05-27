@@ -99,6 +99,13 @@ A modern, modular, and professional Learning Management System (LMS) built with 
 
 ---
 
+## Entity Relationship (ER) Diagram
+![1000056226](https://github.com/user-attachments/assets/941d431c-698d-4bc3-bfea-a18a03b72303)
+
+## UML Diagram
+![1000056227](https://github.com/user-attachments/assets/dcfb5e0c-ef21-4346-9485-0f1f1c7dd6de)
+
+
 ## Getting Started
 
 ### Prerequisites
