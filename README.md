@@ -1,4 +1,4 @@
-# JavaFX Learning Management System (LMS)
+# Learning Management System (LMS)
 
 A modern, modular, and professional Learning Management System (LMS) built with JavaFX and SQLite. This project provides a full-featured platform for students and teachers, including course management, enrollment, attendance, marks, and reporting, all with a beautiful, consistent UI.
 
