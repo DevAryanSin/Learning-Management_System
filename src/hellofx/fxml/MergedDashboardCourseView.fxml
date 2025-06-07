@@ -12,10 +12,10 @@
     
     <!-- Sidebar -->
     <VBox fx:id="sidebar" prefWidth="250" 
-          style="-fx-background-color: white;"/>
+          style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);"/>
     
     <!-- Main Content -->
-    <VBox fx:id="mainContent" HBox.hgrow="ALWAYS" spacing="24" style="-fx-padding: 24;">
+    <VBox fx:id="mainContent" HBox.hgrow="ALWAYS" spacing="24" style="-fx-padding: 32;">
         
         <!-- Dashboard View -->
         <VBox fx:id="dashboardView" spacing="24">
@@ -25,22 +25,30 @@
             <!-- Student Details Card -->
             <VBox spacing="16" style="-fx-background-color: white; 
                                     -fx-padding: 24; 
-                                    -fx-background-radius: 8;
-                                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);">
-                <Label text="Student Details" 
-                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
-                <GridPane vgap="16" hgap="16">
-                    <Label text="Full Name:" style="-fx-text-fill: #5f6368;" 
+                                    -fx-background-radius: 12;
+                                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Label text="Student Details" 
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+                </HBox>
+                
+                <GridPane vgap="16" hgap="24">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="100"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    
+                    <Label text="Full Name" style="-fx-text-fill: #5f6368;" 
                            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                     <Label fx:id="studentFullNameLabel" style="-fx-text-fill: #202124;"
                            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                            
-                    <Label text="Email:" style="-fx-text-fill: #5f6368;"
+                    <Label text="Email" style="-fx-text-fill: #5f6368;"
                            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                     <Label fx:id="studentEmailLabel" style="-fx-text-fill: #202124;"
                            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                            
-                    <Label text="Date of Birth:" style="-fx-text-fill: #5f6368;"
+                    <Label text="Date of Birth" style="-fx-text-fill: #5f6368;"
                            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                     <Label fx:id="studentDobLabel" style="-fx-text-fill: #202124;"
                            GridPane.columnIndex="1" GridPane.rowIndex="2"/>
@@ -49,16 +57,40 @@
         </VBox>
         
         <!-- Attendance View -->
-        <VBox fx:id="attendanceView" visible="false" spacing="24"/>
+        <VBox fx:id="attendanceView" visible="false" spacing="24">
+            <Label text="Attendance Overview" 
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+            <VBox style="-fx-background-color: white; 
+                        -fx-padding: 24; 
+                        -fx-background-radius: 12;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
+                <!-- Attendance content will be added programmatically -->
+            </VBox>
+        </VBox>
         
         <!-- Courses View -->
-        <VBox fx:id="coursesView" visible="false" spacing="24"/>
+        <VBox fx:id="coursesView" visible="false" spacing="24">
+            <Label text="My Courses" 
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+            <GridPane fx:id="courseGrid" hgap="24" vgap="24"/>
+        </VBox>
         
         <!-- Performance View -->
         <VBox fx:id="performanceView" visible="false" spacing="24">
-            <PieChart fx:id="performancePieChart" 
-                      legendVisible="true"
-                      style="-fx-background-color: transparent;"/>
+            <Label text="Academic Performance" 
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+            <HBox spacing="24">
+                <VBox style="-fx-background-color: white; 
+                            -fx-padding: 24; 
+                            -fx-background-radius: 12;
+                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);"
+                      HBox.hgrow="ALWAYS">
+                    <PieChart fx:id="performancePieChart" 
+                             legendVisible="true"
+                             legendSide="RIGHT"
+                             style="-fx-background-color: transparent;"/>
+                </VBox>
+            </HBox>
         </VBox>
     </VBox>
 </HBox>

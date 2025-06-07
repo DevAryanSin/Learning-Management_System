@@ -1,5 +1,5 @@
 package hellofx.controllers;
-
+import javafx.scene.Node;
 // import hellofx.utils.DatabaseConnection;
 import java.util.Arrays;
 import java.util.List;
@@ -63,53 +63,97 @@ public class MergedDashboardCourseController implements Initializable {
     private void setupSidebar() {
         sidebar.getChildren().clear();
         
-        // Logo/App name
+        // Logo section
+        VBox logoBox = new VBox(4);
+        logoBox.setPadding(new Insets(16));
         Label appName = new Label("Learning MS");
-        appName.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a73e8;");
+        Label subtitle = new Label("Student Portal");
+        appName.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a73e8;");
+        subtitle.setStyle("-fx-font-size: 13px; -fx-text-fill: #5f6368;");
+        logoBox.getChildren().addAll(appName, subtitle);
         
-        // Header with toggle button
+        // Toggle button
         Button toggleBtn = new Button("≡");
         toggleBtn.setOnAction(e -> toggleSidebar());
-        toggleBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #5f6368; -fx-font-size: 20px;");
-        
-        HBox header = new HBox(10, toggleBtn, appName);
-        header.setAlignment(Pos.CENTER_LEFT);
-        header.setPadding(new Insets(10));
-        
-        // Menu items
-        VBox menuItems = new VBox(4);
-        menuItems.setPadding(new Insets(8));
-        menuItems.getChildren().addAll(
-            createMenuItem("Dashboard", this::showDashboard, "🏠"),
-            createMenuItem("Attendance", this::showAttendance, "📊"),
-            createMenuItem("Courses", this::showCourses, "📚"),
-            createMenuItem("Performance", this::showProgress, "📈")
-        );
-        
-        sidebar.getChildren().addAll(header, new Separator(), menuItems);
-        sidebar.setStyle("-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);");
-    }
-
-    private Button createMenuItem(String text, Runnable action, String icon) {
-        Button btn = new Button(icon + "  " + text);
-        btn.setOnAction(e -> action.run());
-        btn.setMaxWidth(Double.MAX_VALUE);
-        btn.setStyle(
+        toggleBtn.setStyle(
             "-fx-background-color: transparent;" +
             "-fx-text-fill: #5f6368;" +
-            "-fx-font-size: 14px;" +
-            "-fx-alignment: CENTER_LEFT;" +
-            "-fx-padding: 12 16;" +
+            "-fx-font-size: 24px;" +
             "-fx-cursor: hand;"
         );
         
-        // Hover effect
-        btn.setOnMouseEntered(e -> 
-            btn.setStyle(btn.getStyle() + "-fx-background-color: #F1F3F4;")
+        HBox header = new HBox(12, toggleBtn, logoBox);
+        header.setAlignment(Pos.CENTER_LEFT);
+        header.setPadding(new Insets(8, 16, 8, 8));
+        
+        // Navigation menu
+        VBox menuItems = new VBox(8);
+        menuItems.setPadding(new Insets(8, 8, 8, 16));
+        menuItems.getChildren().addAll(
+            createMenuItem("Dashboard", "Overview and quick actions", this::showDashboard, "🏠"),
+            createMenuItem("Attendance", "View and manage attendance", this::showAttendance, "📊"),
+            createMenuItem("Courses", "Browse enrolled courses", this::showCourses, "📚"),
+            createMenuItem("Performance", "Track academic progress", this::showProgress, "📈")
         );
-        btn.setOnMouseExited(e -> 
-            btn.setStyle(btn.getStyle().replace("-fx-background-color: #F1F3F4;", "-fx-background-color: transparent;"))
+        
+        Separator separator = new Separator();
+        separator.setPadding(new Insets(8, 0, 8, 0));
+        
+        sidebar.getChildren().addAll(header, separator, menuItems);
+        sidebar.setStyle(
+            "-fx-background-color: white;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);"
         );
+    }
+
+    private Button createMenuItem(String title, String description, Runnable action, String icon) {
+        VBox content = new VBox(4);
+        content.setAlignment(Pos.CENTER_LEFT);
+        
+        Label titleLabel = new Label(title);
+        titleLabel.setGraphic(new Label(icon));
+        titleLabel.setGraphicTextGap(12);
+        titleLabel.setStyle(
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: 500;" +
+            "-fx-text-fill: #202124;"
+        );
+        
+        Label descLabel = new Label(description);
+        descLabel.setStyle(
+            "-fx-font-size: 12px;" +
+            "-fx-text-fill: #5f6368;"
+        );
+        
+        content.getChildren().addAll(titleLabel, descLabel);
+        
+        Button btn = new Button();
+        btn.setUserData(title); // Store the title for collapse/expand
+        btn.setGraphic(content);
+        btn.setMaxWidth(Double.MAX_VALUE);
+        btn.setAlignment(Pos.CENTER_LEFT);
+        btn.setOnAction(e -> action.run());
+        btn.setPadding(new Insets(12, 16, 12, 16));
+        btn.setStyle(
+            "-fx-background-color: transparent;" +
+            "-fx-background-radius: 8;" +
+            "-fx-cursor: hand;"
+        );
+        
+        // Hover and active states
+        btn.setOnMouseEntered(e -> {
+            btn.setStyle(
+                "-fx-background-color: #F8F9FA;" +
+                "-fx-background-radius: 8;"
+            );
+        });
+        
+        btn.setOnMouseExited(e -> {
+            btn.setStyle(
+                "-fx-background-color: transparent;" +
+                "-fx-background-radius: 8;"
+            );
+        });
         
         return btn;
     }
@@ -217,12 +261,58 @@ public class MergedDashboardCourseController implements Initializable {
         TranslateTransition transition = new TranslateTransition(Duration.millis(200), sidebar);
         
         if (isSidebarCollapsed) {
+            // Expand
             sidebar.setPrefWidth(EXPANDED_WIDTH);
             transition.setToX(0);
+            
+            // Restore menu items
+            sidebar.getChildren().stream()
+                .filter(node -> node instanceof VBox)
+                .flatMap(vbox -> ((VBox) vbox).getChildren().stream())
+                .filter(node -> node instanceof Button)
+                .forEach(btn -> {
+                    Button button = (Button) btn;
+                    VBox content = (VBox) button.getGraphic();
+                    Label titleLabel = (Label) content.getChildren().get(0);
+                    Label descLabel = (Label) content.getChildren().get(1);
+                    
+                    // Restore original text and spacing
+                    String icon = titleLabel.getGraphic().toString();
+                    titleLabel.setText(button.getUserData().toString()); // Get stored title
+                    titleLabel.setGraphicTextGap(12);
+                    descLabel.setVisible(true);
+                });
         } else {
+            // Collapse
             sidebar.setPrefWidth(COLLAPSED_WIDTH);
-            transition.setToX(-(EXPANDED_WIDTH - COLLAPSED_WIDTH));
+            transition.setToX(0);
+            
+            // Show only icons
+            sidebar.getChildren().stream()
+                .filter(node -> node instanceof VBox)
+                .flatMap(vbox -> ((VBox) vbox).getChildren().stream())
+                .filter(node -> node instanceof Button)
+                .forEach(btn -> {
+                    Button button = (Button) btn;
+                    VBox content = (VBox) button.getGraphic();
+                    Label titleLabel = (Label) content.getChildren().get(0);
+                    Label descLabel = (Label) content.getChildren().get(1);
+                    
+                    // Store the full title for later restoration
+                    button.setUserData(titleLabel.getText());
+                    
+                    // Show only icon
+                    titleLabel.setGraphicTextGap(0);
+                    titleLabel.setText("");
+                    descLabel.setVisible(false);
+                });
         }
+        
+        transition.setOnFinished(e -> {
+            // Ensure sidebar stays visible
+            sidebar.setVisible(true);
+            sidebar.setManaged(true);
+        });
         
         transition.play();
         isSidebarCollapsed = !isSidebarCollapsed;
