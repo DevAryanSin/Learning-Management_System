@@ -8,16 +8,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class MergedDashboardCourseController implements Initializable {
-
     // Courses data
     public static class Course {
         private final String title;
@@ -77,11 +84,97 @@ public class MergedDashboardCourseController implements Initializable {
     @FXML
     private GridPane courseGrid;
 
+    // Sidebar
+    @FXML
+    private VBox sidebar;
+    private boolean isSidebarCollapsed = false;
+
+    // Add new FXML injections for student details
+    @FXML private ImageView studentPhoto;
+    @FXML private Label studentName;
+    @FXML private Label studentEmail;
+    @FXML private Label studentId;
+    @FXML private Label studentAge;
+    @FXML private Label studentPhone;
+    @FXML private Label studentCourse;
+    @FXML private VBox profileCard;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Show dashboard by default
+        showDashboard();
+        loadStudentDetails();
         loadChart();
         loadSubjectPerformance();
         loadCourses();
+    }
+
+    private void loadStudentDetails() {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM students WHERE student_id = ?")) {
+            
+            // TODO: Replace 1 with actual logged-in student ID
+            stmt.setInt(1, 1);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    studentName.setText(rs.getString("first_name") + " " + rs.getString("last_name"));
+                    studentEmail.setText(rs.getString("email"));
+                    studentId.setText(rs.getString("student_id"));
+                    studentAge.setText(String.valueOf(calculateAge(rs.getDate("date_of_birth"))));
+                    studentPhone.setText(rs.getString("phone_no"));
+                    studentCourse.setText(rs.getString("course"));
+                    
+                    // Load student photo if exists
+                    String photoPath = rs.getString("photo_path");
+                    if (photoPath != null && !photoPath.isEmpty()) {
+                        try {
+                            Image img = new Image(new File(photoPath).toURI().toString());
+                            studentPhoto.setImage(img);
+                        } catch (Exception e) {
+                            // Load default image if photo loading fails
+                            Image defaultImg = new Image(getClass().getResourceAsStream("/hellofx/images/default_profile.png"));
+                            studentPhoto.setImage(defaultImg);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+            e.printStackTrace();
+            
+            // Show error dialog
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Database Error");
+            alert.setHeaderText("Failed to load student details");
+            alert.setContentText("Please check your database connection and try again.");
+            alert.showAndWait();
+            
+            // Load placeholder data
+            loadPlaceholderData();
+        }
+    }
+
+    private void loadPlaceholderData() {
+        studentName.setText("Not Available");
+        studentEmail.setText("N/A");
+        studentId.setText("N/A");
+        studentAge.setText("N/A");
+        studentPhone.setText("N/A");
+        studentCourse.setText("N/A");
+        
+        // Load default image
+        try {
+            Image img = new Image(getClass().getResourceAsStream("/hellofx/images/default_profile.png"));
+            studentPhoto.setImage(img);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int calculateAge(Date dob) {
+        if (dob == null) return 0;
+        return Period.between(dob.toLocalDate(), LocalDate.now()).getYears();
     }
 
     private void loadChart() {
@@ -158,7 +251,60 @@ public class MergedDashboardCourseController implements Initializable {
             courseGrid.add(vbox, col, row);
 
             col++;
-            if (col > 1) { col = 0; row++; }
         }
+    }
+
+    // Hide dashboard content and show courses
+    subjectPerformanceTable.setVisible(false);
+    pieChart.setVisible(false);
+    courseGrid.setVisible(true);
+    }FXML
+    private void toggleSidebar() {
+    @FXMLouble expandedWidth = 250;
+    private void showProgress() {0;
+        // Implement progress view logic here
+    }   TranslateTransition transition = new TranslateTransition(Duration.millis(200), sidebar);
+
+
+
+
+
+
+
+
+
+
+}    }        courseGrid.setVisible(false);        pieChart.setVisible(true);        subjectPerformanceTable.setVisible(true);        profileCard.setVisible(true);        // Show student details and performance    private void showDashboard() {    @FXML        if (isSidebarCollapsed) {
+            sidebar.setPrefWidth(expandedWidth);
+            transition.setToX(0);
+        } else {
+            sidebar.setPrefWidth(collapsedWidth);
+            transition.setToX(-180); // 250 - 70 = 180 (difference between expanded and collapsed)
+        }
+
+        transition.play();
+        isSidebarCollapsed = !isSidebarCollapsed;
+    }
+
+    @FXML
+    private void showDashboard() {
+        // Show student details and performance
+        profileCard.setVisible(true);
+        subjectPerformanceTable.setVisible(true);
+        pieChart.setVisible(true);
+        courseGrid.setVisible(false);
+    }
+
+    @FXML
+    private void showCourses() {
+        // Hide dashboard content and show courses
+        subjectPerformanceTable.setVisible(false);
+        pieChart.setVisible(false);
+        courseGrid.setVisible(true);
+    }
+
+    @FXML
+    private void showProgress() {
+        // Implement progress view logic here
     }
 }
