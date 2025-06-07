@@ -1,47 +1,41 @@
 package hellofx.controllers;
 
-// import hellofx.model.StudentsModel;
+// import hellofx.utils.DatabaseConnection;
+import java.util.Arrays;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
+import java.sql.*;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.List;
+import java.util.Arrays;
 
 public class MergedDashboardCourseController implements Initializable {
+    @FXML private VBox sidebar;
+    @FXML private VBox mainContent;
+    @FXML private VBox dashboardView;
+    @FXML private VBox attendanceView;
+    @FXML private VBox coursesView;
+    @FXML private VBox performanceView;
+    @FXML private Label studentFullNameLabel;
+    @FXML private Label studentEmailLabel;
+    @FXML private Label studentDobLabel;
+    @FXML private Label studentNameLabel;
 
-    // Courses data
-    public static class Course {
-        private final String title;
-        private final String info;
-
-        public Course(String title, String info) {
-            this.title = title;
-            this.info = info;
-        }
-        public String getTitle() { return title; }
-        public String getInfo() { return info; }
-    }
-
-    private final List<Course> courses = Arrays.asList(
-        new Course("Mathematics", "Algebra and Calculus"),
-        new Course("Physics", "Mechanics and Thermodynamics"),
-        new Course("Chemistry", "Organic and Inorganic Chemistry"),
-        new Course("Biology", "Genetics and Evolution"),
-        new Course("Computer Science", "Programming and Data Structures")
-    );
-
-    // Subject-wise performance data model
+    // Add this class for subject performance data
     public static class SubjectPerformance {
         private final String subject;
         private final int marks;
@@ -50,171 +44,227 @@ public class MergedDashboardCourseController implements Initializable {
             this.subject = subject;
             this.marks = marks;
         }
+
         public String getSubject() { return subject; }
         public int getMarks() { return marks; }
     }
 
-    // ObservableList for subject-wise performance
-    private final ObservableList<SubjectPerformance> subjectPerformanceList = FXCollections.observableArrayList(
-        new SubjectPerformance("Mathematics", 88),
-        new SubjectPerformance("Physics", 76),
-        new SubjectPerformance("Chemistry", 82),
-        new SubjectPerformance("Biology", 91),
-        new SubjectPerformance("Computer Science", 95)
-    );
-
-    // TableView and columns for subject-wise performance
-    @FXML
-    private TableView<SubjectPerformance> subjectPerformanceTable;
-    @FXML
-    private TableColumn<SubjectPerformance, String> subjectColumn;
-    @FXML
-    private TableColumn<SubjectPerformance, Integer> marksColumn;
-
-    // PieChart
-    @FXML
-    private PieChart pieChart;
-
-    // Course viewer
-    @FXML
-    private GridPane courseGrid;
-
-    @FXML
-    private VBox profileCard;
-
-    @FXML
-    private VBox sidebar;
-    
     private boolean isSidebarCollapsed = false;
+    private static final double EXPANDED_WIDTH = 250;
+    private static final double COLLAPSED_WIDTH = 70;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadChart();
-        loadSubjectPerformance();
-        loadCourses();
+        setupSidebar();
+        showDashboard();
+        loadStudentDetails();
     }
 
-    private void loadChart() {
-        PieChart.Data slice1 = new PieChart.Data("Classes", 213);
-        PieChart.Data slice2 = new PieChart.Data("Attendance", 67);
-        PieChart.Data slice3 = new PieChart.Data("Teachers", 36);
-
-        pieChart.getData().clear();
-        pieChart.getData().addAll(slice1, slice2, slice3);
-
-        // Animate PieChart slices
-        for (PieChart.Data data : pieChart.getData()) {
-            data.getNode().setScaleX(0);
-            data.getNode().setScaleY(0);
-            javafx.animation.ScaleTransition st = new javafx.animation.ScaleTransition(javafx.util.Duration.millis(800), data.getNode());
-            st.setToX(1);
-            st.setToY(1);
-            st.setCycleCount(1);
-            st.play();
-        }
+    private void setupSidebar() {
+        sidebar.getChildren().clear();
+        
+        // Logo/App name
+        Label appName = new Label("Learning MS");
+        appName.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a73e8;");
+        
+        // Header with toggle button
+        Button toggleBtn = new Button("≡");
+        toggleBtn.setOnAction(e -> toggleSidebar());
+        toggleBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #5f6368; -fx-font-size: 20px;");
+        
+        HBox header = new HBox(10, toggleBtn, appName);
+        header.setAlignment(Pos.CENTER_LEFT);
+        header.setPadding(new Insets(10));
+        
+        // Menu items
+        VBox menuItems = new VBox(4);
+        menuItems.setPadding(new Insets(8));
+        menuItems.getChildren().addAll(
+            createMenuItem("Dashboard", this::showDashboard, "🏠"),
+            createMenuItem("Attendance", this::showAttendance, "📊"),
+            createMenuItem("Courses", this::showCourses, "📚"),
+            createMenuItem("Performance", this::showProgress, "📈")
+        );
+        
+        sidebar.getChildren().addAll(header, new Separator(), menuItems);
+        sidebar.setStyle("-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);");
     }
 
-    private void loadSubjectPerformance() {
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        marksColumn.setCellValueFactory(new PropertyValueFactory<>("marks"));
-        subjectPerformanceTable.setItems(subjectPerformanceList);
+    private Button createMenuItem(String text, Runnable action, String icon) {
+        Button btn = new Button(icon + "  " + text);
+        btn.setOnAction(e -> action.run());
+        btn.setMaxWidth(Double.MAX_VALUE);
+        btn.setStyle(
+            "-fx-background-color: transparent;" +
+            "-fx-text-fill: #5f6368;" +
+            "-fx-font-size: 14px;" +
+            "-fx-alignment: CENTER_LEFT;" +
+            "-fx-padding: 12 16;" +
+            "-fx-cursor: hand;"
+        );
+        
+        // Hover effect
+        btn.setOnMouseEntered(e -> 
+            btn.setStyle(btn.getStyle() + "-fx-background-color: #F1F3F4;")
+        );
+        btn.setOnMouseExited(e -> 
+            btn.setStyle(btn.getStyle().replace("-fx-background-color: #F1F3F4;", "-fx-background-color: transparent;"))
+        );
+        
+        return btn;
+    }
 
-        // Ensure text is visible on dark background
-        subjectColumn.setCellFactory(column -> new TableCell<SubjectPerformance, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? null : item);
-                setStyle("-fx-text-fill: #F7FAFC; -fx-font-size: 15px; -fx-background-color: #181A20;");
-            }
-        });
-        marksColumn.setCellFactory(column -> new TableCell<SubjectPerformance, Integer>() {
-            @Override
-            protected void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? null : String.valueOf(item));
-                setStyle("-fx-text-fill: #F7FAFC; -fx-font-size: 15px; -fx-background-color: #181A20;");
-            }
-        });
+    private void loadStudentDetails() {
+        // Default student data
+        String fullName = "John Doe";
+        String email = "john.doe@example.com";
+        String dob = "2000-01-01";
+        
+        studentNameLabel.setText("Welcome, " + fullName);
+        studentFullNameLabel.setText(fullName);
+        studentEmailLabel.setText(email);
+        studentDobLabel.setText(dob);
     }
 
     private void loadCourses() {
-        if (courseGrid == null) return; // In case the FXML doesn't include the grid
-        courseGrid.getChildren().clear();
-        int col = 0, row = 0;
+        // Default course data
+        List<Course> courses = Arrays.asList(
+            new Course("Computer Science 101", "Introduction to Programming", "Prof. Smith"),
+            new Course("Mathematics 201", "Advanced Calculus", "Prof. Johnson"),
+            new Course("Physics 101", "Basic Physics", "Prof. Brown"),
+            new Course("English 101", "Academic Writing", "Prof. Davis")
+        );
+        
+        displayCourses(courses);
+    }
+
+    private void displayCourses(List<Course> courses) {
+        coursesView.getChildren().clear();
+        
+        GridPane grid = new GridPane();
+        grid.setHgap(20);
+        grid.setVgap(20);
+        
+        int col = 0;
+        int row = 0;
+        
         for (Course course : courses) {
-            VBox vbox = new VBox(10);
-            vbox.setStyle("-fx-border-color: #00337C; -fx-padding: 10;");
-            Label titleLabel = new Label(course.getTitle());
-            titleLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #F7FAFC;");
-            Button enrollBtn = new Button("Enroll");
-            Button infoBtn = new Button("View Info");
-
-            enrollBtn.setStyle("-fx-background-color: #00337C; -fx-text-fill: #F7FAFC; -fx-background-radius: 6;");
-            infoBtn.setStyle("-fx-background-color: #353945; -fx-text-fill: #F7FAFC; -fx-background-radius: 6;");
-
-            enrollBtn.setOnAction(e -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Enrolled in " + course.getTitle() + "!");
-                alert.showAndWait();
-            });
-            infoBtn.setOnAction(e -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, course.getInfo());
-                alert.setHeaderText(course.getTitle() + " Info");
-                alert.showAndWait();
-            });
-
-            vbox.getChildren().addAll(titleLabel, enrollBtn, infoBtn);
-            vbox.setStyle("-fx-background-color: #181A20; -fx-border-color: #00337C; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16;");
-            courseGrid.add(vbox, col, row);
-
+            VBox courseCard = new VBox(10);
+            courseCard.setStyle(
+                "-fx-background-color: white;" +
+                "-fx-padding: 15;" +
+                "-fx-background-radius: 8;" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);"
+            );
+            
+            Label titleLabel = new Label(course.getName());
+            titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+            
+            Label descLabel = new Label(course.getDescription());
+            descLabel.setStyle("-fx-text-fill: #5f6368;");
+            
+            Label instructorLabel = new Label(course.getInstructor());
+            instructorLabel.setStyle("-fx-text-fill: #5f6368;");
+            
+            courseCard.getChildren().addAll(titleLabel, descLabel, instructorLabel);
+            
+            grid.add(courseCard, col, row);
+            
             col++;
-            if (col > 1) { col = 0; row++; }
+            if (col > 1) {
+                col = 0;
+                row++;
+            }
         }
+        
+        coursesView.getChildren().add(grid);
     }
 
-    @FXML
-    private void showDashboard() {
-        if (profileCard != null) profileCard.setVisible(true);
-        if (subjectPerformanceTable != null) subjectPerformanceTable.setVisible(true);
-        if (pieChart != null) pieChart.setVisible(true);
-        if (courseGrid != null) courseGrid.setVisible(false);
-    }
+    // Add Course class
+    private static class Course {
+        private final String name;
+        private final String description;
+        private final String instructor;
 
-    @FXML
-    private void showCourses() {
-        if (profileCard != null) profileCard.setVisible(false);
-        if (subjectPerformanceTable != null) subjectPerformanceTable.setVisible(false);
-        if (pieChart != null) pieChart.setVisible(false);
-        if (courseGrid != null) {
-            courseGrid.setVisible(true);
-            loadCourses(); // Refresh courses when showing the view
+        public Course(String name, String description, String instructor) {
+            this.name = name;
+            this.description = description;
+            this.instructor = instructor;
         }
+
+        public String getName() { return name; }
+        public String getDescription() { return description; }
+        public String getInstructor() { return instructor; }
     }
 
-    @FXML
-    private void showProgress() {
-        if (profileCard != null) profileCard.setVisible(false);
-        if (subjectPerformanceTable != null) subjectPerformanceTable.setVisible(true);
-        if (pieChart != null) pieChart.setVisible(true);
-        if (courseGrid != null) courseGrid.setVisible(false);
+    private void loadPerformanceData() {
+        // Default performance data
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+            new PieChart.Data("Mathematics", 85),
+            new PieChart.Data("Physics", 78),
+            new PieChart.Data("Chemistry", 92),
+            new PieChart.Data("Computer Science", 95)
+        );
+        
+        if (performancePieChart != null) {
+            performancePieChart.setData(pieChartData);
+            performancePieChart.setTitle("Subject Performance");
+        }
     }
 
     @FXML
     private void toggleSidebar() {
-        double expandedWidth = 250;
-        double collapsedWidth = 70;
-        
         TranslateTransition transition = new TranslateTransition(Duration.millis(200), sidebar);
         
         if (isSidebarCollapsed) {
-            sidebar.setPrefWidth(expandedWidth);
+            sidebar.setPrefWidth(EXPANDED_WIDTH);
             transition.setToX(0);
         } else {
-            sidebar.setPrefWidth(collapsedWidth);
-            transition.setToX(-180); // 250 - 70 = 180 (difference between expanded and collapsed)
+            sidebar.setPrefWidth(COLLAPSED_WIDTH);
+            transition.setToX(-(EXPANDED_WIDTH - COLLAPSED_WIDTH));
         }
         
         transition.play();
         isSidebarCollapsed = !isSidebarCollapsed;
+    }
+
+    private void hideAllViews() {
+        dashboardView.setVisible(false);
+        attendanceView.setVisible(false);
+        coursesView.setVisible(false);
+        performanceView.setVisible(false);
+    }
+
+    @FXML
+    private void showDashboard() {
+        hideAllViews();
+        dashboardView.setVisible(true);
+    }
+
+    @FXML
+    private void showAttendance() {
+        hideAllViews();
+        attendanceView.setVisible(true);
+    }
+
+    @FXML
+    private void showCourses() {
+        hideAllViews();
+        coursesView.setVisible(true);
+        loadCourses(); // Refresh courses when showing the view
+    }
+
+    @FXML
+    private void showProgress() {
+        hideAllViews();
+        performanceView.setVisible(true);
+    }
+
+    // Remove database-related imports and error handling
+    private void showError(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

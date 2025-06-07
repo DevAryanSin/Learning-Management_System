@@ -15,6 +15,11 @@ import javafx.scene.Node;
 import java.sql.*;
 
 public class StudentLoginController {
+    private static String loggedInEmail;
+
+    public static String getLoggedInEmail() {
+        return loggedInEmail;
+    }
 
     @FXML
     private TextField emailField;
@@ -50,6 +55,7 @@ public class StudentLoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                loggedInEmail = email; // Store the email when login is successful
                 Parent root = FXMLLoader.load(getClass().getResource("/hellofx/fxml/MergedDashboardCourseView.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root, 1024, 640));

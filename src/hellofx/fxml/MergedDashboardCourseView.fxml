@@ -1,85 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" 
-            xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="hellofx.controllers.MergedDashboardCourseController"
-            style="-fx-background-color: #FFFFFF;">
+<HBox xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="hellofx.controllers.MergedDashboardCourseController"
+      style="-fx-background-color: #F8F9FA;">
     
-    <left>
-        <VBox fx:id="sidebar" spacing="8" 
-              style="-fx-background-color: #FFFFFF; 
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);"
-              prefWidth="250">
-            <padding>
-                <Insets top="20" right="16" bottom="20" left="16"/>
-            </padding>
+    <!-- Sidebar -->
+    <VBox fx:id="sidebar" prefWidth="250" 
+          style="-fx-background-color: white;"/>
+    
+    <!-- Main Content -->
+    <VBox fx:id="mainContent" HBox.hgrow="ALWAYS" spacing="24" style="-fx-padding: 24;">
+        
+        <!-- Dashboard View -->
+        <VBox fx:id="dashboardView" spacing="24">
+            <Label fx:id="studentNameLabel" 
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
             
-            <Button text="Dashboard" onAction="#showDashboard"
-                    style="-fx-background-color: #E8F0FE; 
-                           -fx-text-fill: #1a73e8;
-                           -fx-font-size: 14px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-padding: 12 16;"/>
+            <!-- Student Details Card -->
+            <VBox spacing="16" style="-fx-background-color: white; 
+                                    -fx-padding: 24; 
+                                    -fx-background-radius: 8;
+                                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);">
+                <Label text="Student Details" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+                <GridPane vgap="16" hgap="16">
+                    <Label text="Full Name:" style="-fx-text-fill: #5f6368;" 
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="studentFullNameLabel" style="-fx-text-fill: #202124;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                            
-            <Button text="Courses" onAction="#showCourses"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: #5f6368;
-                           -fx-font-size: 14px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-padding: 12 16;"/>
+                    <Label text="Email:" style="-fx-text-fill: #5f6368;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="studentEmailLabel" style="-fx-text-fill: #202124;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                            
-            <Button text="Progress" onAction="#showProgress"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: #5f6368;
-                           -fx-font-size: 14px;
-                           -fx-alignment: CENTER_LEFT;
-                           -fx-padding: 12 16;"/>
-        </VBox>
-    </left>
-    
-    <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
-            <VBox spacing="24" style="-fx-padding: 24;">
-                <VBox fx:id="profileCard" spacing="16">
-                    <HBox spacing="16" alignment="CENTER_LEFT">
-                        <ImageView fx:id="studentPhoto" fitHeight="120" fitWidth="120"/>
-                        <VBox spacing="8">
-                            <Label fx:id="studentName" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
-                            <Label fx:id="studentEmail" style="-fx-font-size: 14;"/>
-                            <Label fx:id="studentId" style="-fx-font-size: 14;"/>
-                            <Label fx:id="studentAge" style="-fx-font-size: 14;"/>
-                            <Label fx:id="studentPhone" style="-fx-font-size: 14;"/>
-                            <Label fx:id="studentCourse" style="-fx-font-size: 14;"/>
-                        </VBox>
-                    </HBox>
-                </VBox>
-                
-                <TableView fx:id="subjectPerformanceTable">
-                    <columns>
-                        <TableColumn fx:id="subjectColumn" text="Subject"/>
-                        <TableColumn fx:id="marksColumn" text="Marks"/>
-                    </columns>
-                </TableView>
-                
-                <PieChart fx:id="pieChart"/>
-                
-                <GridPane fx:id="courseGrid" hgap="10" vgap="10"/>
+                    <Label text="Date of Birth:" style="-fx-text-fill: #5f6368;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label fx:id="studentDobLabel" style="-fx-text-fill: #202124;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                </GridPane>
             </VBox>
-        </ScrollPane>
-    </center>
-    
-</BorderPane>
+        </VBox>
+        
+        <!-- Attendance View -->
+        <VBox fx:id="attendanceView" visible="false" spacing="24"/>
+        
+        <!-- Courses View -->
+        <VBox fx:id="coursesView" visible="false" spacing="24"/>
+        
+        <!-- Performance View -->
+        <VBox fx:id="performanceView" visible="false" spacing="24">
+            <PieChart fx:id="performancePieChart" 
+                      legendVisible="true"
+                      style="-fx-background-color: transparent;"/>
+        </VBox>
+    </VBox>
+</HBox>
