@@ -15,7 +15,7 @@ public class WelcomeController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/hellofx/fxml/student_login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 400, 300));
+            stage.setScene(new Scene(root, 1024, 640)); // Updated to match welcome page size
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,7 +26,7 @@ public class WelcomeController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/hellofx/fxml/teacher_login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 400, 300));
+            stage.setScene(new Scene(root, 1024, 640)); // Updated to match welcome page size
         } catch (Exception e) {
             e.printStackTrace();
         }
