@@ -1,0 +1,34 @@
+# Compiled output
+bin/
+build/
+out/
+
+# IDE specific
+.vscode/
+.idea/
+.settings/
+.classpath
+.project
+
+# Project specific
+learning-management-system/
+lib/
+
+# Compiled class files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Database files
+*.db
+*.db-journal
+
+# OS specific files
+.DS_Store
+Thumbs.db
