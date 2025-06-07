@@ -8,15 +8,20 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:sqlite:lms.db";
     private static Connection connection = null;
     
-    public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(URL);
-            } catch (SQLException e) {
-                System.out.println("Error connecting to database: " + e.getMessage());
-                e.printStackTrace();
-            }
+    public static Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            connection = DriverManager.getConnection(URL);
         }
         return connection;
+    }
+
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println("Error closing connection: " + e.getMessage());
+            }
+        }
     }
 }
