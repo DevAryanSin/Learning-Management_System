@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -79,6 +81,11 @@ public class MergedDashboardCourseController implements Initializable {
 
     @FXML
     private VBox profileCard;
+
+    @FXML
+    private VBox sidebar;
+    
+    private boolean isSidebarCollapsed = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -190,5 +197,24 @@ public class MergedDashboardCourseController implements Initializable {
         if (subjectPerformanceTable != null) subjectPerformanceTable.setVisible(true);
         if (pieChart != null) pieChart.setVisible(true);
         if (courseGrid != null) courseGrid.setVisible(false);
+    }
+
+    @FXML
+    private void toggleSidebar() {
+        double expandedWidth = 250;
+        double collapsedWidth = 70;
+        
+        TranslateTransition transition = new TranslateTransition(Duration.millis(200), sidebar);
+        
+        if (isSidebarCollapsed) {
+            sidebar.setPrefWidth(expandedWidth);
+            transition.setToX(0);
+        } else {
+            sidebar.setPrefWidth(collapsedWidth);
+            transition.setToX(-180); // 250 - 70 = 180 (difference between expanded and collapsed)
+        }
+        
+        transition.play();
+        isSidebarCollapsed = !isSidebarCollapsed;
     }
 }
