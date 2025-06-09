@@ -10,6 +10,7 @@ import javafx.collections.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.layout.VBox;
+import hellofx.utils.SampleData;
 
 public class TeacherMarksController implements Initializable {
     @FXML private ComboBox<String> courseCombo;
@@ -21,9 +22,14 @@ public class TeacherMarksController implements Initializable {
     @FXML private Button saveButton;
 
     private ObservableList<StudentMark> students = FXCollections.observableArrayList(
-        new StudentMark("101", "John Doe", 85),
-        new StudentMark("102", "Jane Smith", 92),
-        new StudentMark("103", "Bob Wilson", 78)
+        new StudentMark("2023001", "Aarav Patel", 87),
+        new StudentMark("2023002", "Aditi Sharma", 92),
+        new StudentMark("2023003", "Arjun Singh", 78),
+        new StudentMark("2023004", "Ananya Gupta", 95),
+        new StudentMark("2023005", "Dev Kumar", 88),
+        new StudentMark("2023006", "Diya Verma", 91),
+        new StudentMark("2023007", "Ishaan Reddy", 85),
+        new StudentMark("2023008", "Kavya Mehta", 89)
     );
 
     public static class StudentMark {

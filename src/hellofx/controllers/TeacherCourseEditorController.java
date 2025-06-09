@@ -21,9 +21,12 @@ public class TeacherCourseEditorController implements Initializable {
     @FXML private TableColumn<Course, String> semesterColumn;
 
     private ObservableList<Course> courses = FXCollections.observableArrayList(
-        new Course("CS101", "Introduction to Programming", "Basic programming concepts"),
-        new Course("MTH201", "Calculus", "Advanced mathematics"),
-        new Course("PHY101", "Physics", "Basic physics principles")
+        new Course("CS101", "Introduction to Programming", "Fundamentals of Java and Python programming"),
+        new Course("CS102", "Data Structures", "Advanced data structures and algorithms"),
+        new Course("MTH201", "Advanced Calculus", "Differential equations and vector calculus"),
+        new Course("PHY101", "Classical Physics", "Mechanics and thermodynamics"),
+        new Course("CS203", "Database Systems", "SQL and database management"),
+        new Course("MTH202", "Linear Algebra", "Matrices and vector spaces")
     );
 
     public static class Course {
@@ -57,5 +60,5 @@ public class TeacherCourseEditorController implements Initializable {
         }
     }
 
-    // Implement add, edit, delete methods as needed
+
 }

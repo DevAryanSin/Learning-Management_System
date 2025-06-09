@@ -51,10 +51,14 @@ public class TeacherEnrollController implements Initializable {
         courseColumn.setCellValueFactory(new PropertyValueFactory<>("course"));
         studentTable.setItems(students);
 
-        // Add some sample data
+        // Add sample data
         students.addAll(
-            new Student("John Doe", "john@example.com", "Computer Science"),
-            new Student("Jane Smith", "jane@example.com", "Mathematics")
+            new Student("Aarav Patel", "aarav.patel@example.com", "Computer Science"),
+            new Student("Aditi Sharma", "aditi.sharma@example.com", "Mathematics"),
+            new Student("Arjun Singh", "arjun.singh@example.com", "Physics"),
+            new Student("Ananya Gupta", "ananya.gupta@example.com", "Computer Science"),
+            new Student("Dev Kumar", "dev.kumar@example.com", "Mathematics"),
+            new Student("Diya Verma", "diya.verma@example.com", "Physics")
         );
     }
 

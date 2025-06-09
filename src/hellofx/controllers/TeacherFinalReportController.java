@@ -10,6 +10,8 @@ import javafx.collections.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class TeacherFinalReportController implements Initializable {
     @FXML private ComboBox<String> courseCombo;
@@ -21,9 +23,14 @@ public class TeacherFinalReportController implements Initializable {
     @FXML private TableColumn<Report, String> gradeColumn;
 
     private ObservableList<Report> reports = FXCollections.observableArrayList(
-        new Report("101", "John Doe", 85, "A"),
-        new Report("102", "Jane Smith", 92, "A+"),
-        new Report("103", "Bob Wilson", 78, "B+")
+        new Report("2023001", "Aarav Patel", 87, "A"),
+        new Report("2023002", "Aditi Sharma", 92, "A+"),
+        new Report("2023003", "Arjun Singh", 78, "B+"),
+        new Report("2023004", "Ananya Gupta", 95, "A+"),
+        new Report("2023005", "Dev Kumar", 88, "A"),
+        new Report("2023006", "Diya Verma", 91, "A+"),
+        new Report("2023007", "Ishaan Reddy", 85, "A"),
+        new Report("2023008", "Kavya Mehta", 89, "A")
     );
 
     public static class Report {
@@ -71,10 +78,16 @@ public class TeacherFinalReportController implements Initializable {
     private void goBack() {
         try {
             Parent view = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Teachers.fxml"));
-            reportTable.getScene().getRoot().setStyle("-fx-background-color: #F8F9FA;");
-            ((VBox) reportTable.getScene().getRoot()).getChildren().setAll(view);
+            Scene scene = new Scene(view, 1024, 640);
+            scene.getRoot().setStyle("-fx-background-color: #F8F9FA;");
+            Stage stage = (Stage) reportTable.getScene().getWindow();
+            stage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Navigation Error");
+            alert.setContentText("Could not return to Teachers view: " + e.getMessage());
+            alert.showAndWait();
         }
     }
 

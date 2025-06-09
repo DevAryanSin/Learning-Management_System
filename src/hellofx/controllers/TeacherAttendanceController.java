@@ -10,6 +10,7 @@ import javafx.collections.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import hellofx.utils.SampleData;
 
 public class TeacherAttendanceController implements Initializable {
     @FXML private DatePicker datePicker;
@@ -20,9 +21,14 @@ public class TeacherAttendanceController implements Initializable {
     @FXML private TableColumn<StudentAttendance, String> presentColumn;
 
     private ObservableList<StudentAttendance> students = FXCollections.observableArrayList(
-        new StudentAttendance("101", "John Doe", "Present"),
-        new StudentAttendance("102", "Jane Smith", "Absent"),
-        new StudentAttendance("103", "Bob Wilson", "Present")
+        new StudentAttendance("2023001", "Aarav Patel", "Present"),
+        new StudentAttendance("2023002", "Aditi Sharma", "Present"),
+        new StudentAttendance("2023003", "Arjun Singh", "Absent"),
+        new StudentAttendance("2023004", "Ananya Gupta", "Present"),
+        new StudentAttendance("2023005", "Dev Kumar", "Present"),
+        new StudentAttendance("2023006", "Diya Verma", "Absent"),
+        new StudentAttendance("2023007", "Ishaan Reddy", "Present"),
+        new StudentAttendance("2023008", "Kavya Mehta", "Present")
     );
 
     @Override
