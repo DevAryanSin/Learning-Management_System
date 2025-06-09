@@ -71,6 +71,34 @@ public class StudentLoginController {
     }
 
     @FXML
+    private void onForgotPassword() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/hellofx/fxml/forgot_password.fxml"));
+            Parent view = loader.load();
+            
+            // Get controller and set source
+            ForgotPasswordController controller = loader.getController();
+            controller.setSourceView("student");
+            
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            Scene scene = new Scene(view, 1024, 640);
+            scene.getRoot().setStyle("-fx-background-color: #FFFFFF;");
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Navigation Error", "Could not open password reset screen");
+        }
+    }
+
+    private void showError(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
     private void onCreateAccount(ActionEvent event) {
         String name = nameField.getText();
         String email = createEmailField.getText();

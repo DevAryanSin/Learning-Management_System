@@ -39,8 +39,8 @@
                                  -fx-font-size: 14px;
                                  -fx-padding: 16;"/>
                                  
-            <Hyperlink text="Forgot password?" 
-                      style="-fx-text-fill: #1a73e8; -fx-font-size: 14px; -fx-border-width: 0;"/>
+<Hyperlink text="Forgot password?" onAction="#onForgotPassword"
+           style="-fx-text-fill: #1a73e8; -fx-font-size: 14px; -fx-border-width: 0;"/>
         </VBox>
         
         <HBox spacing="16" alignment="CENTER_RIGHT" style="-fx-padding: 16 0;">

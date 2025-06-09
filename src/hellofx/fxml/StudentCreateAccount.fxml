@@ -4,33 +4,88 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.StudentLoginController"
-            prefWidth="1024" prefHeight="640" minWidth="1024" minHeight="640" maxWidth="1024" maxHeight="640"
-            style="-fx-background-color: #181A20;">
-    <children>
-        <VBox alignment="CENTER" spacing="18"
-              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-            <children>
-                <Label text="Create Student Account"
-                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #00337C;"/>
-                <TextField fx:id="nameField" promptText="Full Name"
-                           style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
-                <DatePicker fx:id="dobPicker" promptText="Date of Birth"
-                            style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #00337C;"/>
-                <TextField fx:id="createEmailField" promptText="Email"
-                           style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
-                <PasswordField fx:id="createPasswordField" promptText="Password"
-                               style="-fx-background-radius: 8; -fx-background-color: #23262F; -fx-text-fill: #F7FAFC;"/>
-                <Button text="Create Account"
-                        style="-fx-background-color: #00337C; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 40;"
-                        onAction="#onCreateAccount"/>
-                <Button text="Back to Login"
-                        style="-fx-background-color: transparent; -fx-text-fill: #00337C; -fx-font-size: 15px; -fx-font-weight: bold;"
-                        onAction="#onBack"/>
-            </children>
-            <padding>
-                <Insets top="30" left="350" right="350" bottom="30"/>
-            </padding>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="hellofx.controllers.StudentLoginController"
+            prefWidth="1024" prefHeight="640" 
+            style="-fx-background-color: #F8F9FA;">
+    <VBox alignment="TOP_CENTER" spacing="32"
+          AnchorPane.leftAnchor="0" 
+          AnchorPane.rightAnchor="0" 
+          AnchorPane.topAnchor="0" 
+          AnchorPane.bottomAnchor="0">
+        
+        <!-- Header Section -->
+        <VBox alignment="CENTER" spacing="8"
+              style="-fx-padding: 48 0 24 0;">
+            <Label text="Create your account"
+                   style="-fx-font-size: 28px; 
+                          -fx-font-weight: bold; 
+                          -fx-text-fill: #202124;"/>
+            <Label text="to continue to Learning Management System"
+                   style="-fx-font-size: 16px; 
+                          -fx-text-fill: #5F6368;"/>
         </VBox>
-    </children>
+        
+        <!-- Form Card -->
+        <VBox spacing="24" 
+              style="-fx-background-color: white;
+                     -fx-padding: 32;
+                     -fx-max-width: 448;
+                     -fx-background-radius: 8;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
+            
+            <TextField fx:id="nameField" 
+                      promptText="Full Name"
+                      style="-fx-pref-height: 40;
+                             -fx-font-size: 14px;
+                             -fx-background-color: white;
+                             -fx-border-color: #DFE1E5;
+                             -fx-border-radius: 4;
+                             -fx-prompt-text-fill: #5F6368;"/>
+                             
+            <DatePicker fx:id="dobPicker" 
+                       promptText="Date of Birth"
+                       style="-fx-pref-height: 40;
+                              -fx-font-size: 14px;
+                              -fx-background-color: white;
+                              -fx-border-color: #DFE1E5;
+                              -fx-border-radius: 4;"/>
+                              
+            <TextField fx:id="createEmailField" 
+                      promptText="Email address"
+                      style="-fx-pref-height: 40;
+                             -fx-font-size: 14px;
+                             -fx-background-color: white;
+                             -fx-border-color: #DFE1E5;
+                             -fx-border-radius: 4;
+                             -fx-prompt-text-fill: #5F6368;"/>
+                             
+            <PasswordField fx:id="createPasswordField" 
+                         promptText="Password"
+                         style="-fx-pref-height: 40;
+                                -fx-font-size: 14px;
+                                -fx-background-color: white;
+                                -fx-border-color: #DFE1E5;
+                                -fx-border-radius: 4;
+                                -fx-prompt-text-fill: #5F6368;"/>
+            
+            <HBox spacing="16" alignment="CENTER_RIGHT">
+                <Button text="Back to Login"
+                        onAction="#onBack"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #1a73e8;
+                               -fx-font-size: 14px;
+                               -fx-cursor: hand;"/>
+                               
+                <Button text="Create Account"
+                        onAction="#onCreateAccount"
+                        style="-fx-background-color: #1a73e8;
+                               -fx-text-fill: white;
+                               -fx-font-size: 14px;
+                               -fx-padding: 8 24;
+                               -fx-background-radius: 4;
+                               -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+    </VBox>
 </AnchorPane>
