@@ -5,11 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.*;
 import java.net.URL;
-// import java.sql.*;
 import java.util.ResourceBundle;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class TeacherMarksController implements Initializable {
     @FXML private ComboBox<String> courseCombo;
@@ -20,7 +20,11 @@ public class TeacherMarksController implements Initializable {
     @FXML private TableColumn<StudentMark, Integer> marksColumn;
     @FXML private Button saveButton;
 
-    private ObservableList<StudentMark> students = FXCollections.observableArrayList();
+    private ObservableList<StudentMark> students = FXCollections.observableArrayList(
+        new StudentMark("101", "John Doe", 85),
+        new StudentMark("102", "Jane Smith", 92),
+        new StudentMark("103", "Bob Wilson", 78)
+    );
 
     public static class StudentMark {
         private final String roll, name;
@@ -36,19 +40,31 @@ public class TeacherMarksController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        rollColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getRoll()));
-        nameColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
-        marksColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getMarks()).asObject());
+        // Setup ComboBoxes
+        courseCombo.getItems().addAll("Computer Science", "Mathematics", "Physics");
+        semCombo.getItems().addAll("Semester 1", "Semester 2", "Semester 3");
+
+        // Setup TableView
+        rollColumn.setCellValueFactory(new PropertyValueFactory<>("roll"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        marksColumn.setCellValueFactory(new PropertyValueFactory<>("marks"));
+        
         marksTable.setItems(students);
-        // Load courses, semesters, and students as needed
+
+        // Setup Save Button
+        saveButton.setOnAction(e -> saveMarks());
     }
-    
+
+    private void saveMarks() {
+        // Add save functionality here
+        System.out.println("Saving marks...");
+    }
+
     @FXML
     private void goBack() {
         try {
             Parent view = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Teachers.fxml"));
-            AnchorPane root = (AnchorPane) marksTable.getScene().getRoot();
-            root.getChildren().setAll(view);
+            marksTable.getScene().setRoot(view);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,22 +5,51 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.*;
-import javafx.scene.layout.AnchorPane;
 import java.net.URL;
-// import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class TeacherAttendanceController implements Initializable {
-    @FXML private ComboBox<String> courseCombo;
     @FXML private DatePicker datePicker;
+    @FXML private ComboBox<String> courseCombo;
     @FXML private TableView<StudentAttendance> attendanceTable;
     @FXML private TableColumn<StudentAttendance, String> rollColumn;
     @FXML private TableColumn<StudentAttendance, String> nameColumn;
-    @FXML private TableColumn<StudentAttendance, String> statusColumn;
-    @FXML private Button saveButton;
+    @FXML private TableColumn<StudentAttendance, String> presentColumn;
 
-    private ObservableList<StudentAttendance> students = FXCollections.observableArrayList();
+    private ObservableList<StudentAttendance> students = FXCollections.observableArrayList(
+        new StudentAttendance("101", "John Doe", "Present"),
+        new StudentAttendance("102", "Jane Smith", "Absent"),
+        new StudentAttendance("103", "Bob Wilson", "Present")
+    );
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Setup DatePicker
+        datePicker.setValue(LocalDate.now());
+
+        // Setup ComboBox
+        courseCombo.getItems().addAll("Computer Science", "Mathematics", "Physics");
+
+        // Setup TableView
+        rollColumn.setCellValueFactory(new PropertyValueFactory<>("roll"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        presentColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        
+        attendanceTable.setItems(students);
+    }
+
+    @FXML
+    private void goBack() {
+        try {
+            Parent view = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Teachers.fxml"));
+            attendanceTable.getScene().setRoot(view);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static class StudentAttendance {
         private final String roll, name;
@@ -32,27 +61,5 @@ public class TeacherAttendanceController implements Initializable {
         public String getName() { return name; }
         public String getStatus() { return status; }
         public void setStatus(String status) { this.status = status; }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        rollColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getRoll()));
-        nameColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
-        statusColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getStatus()));
-        attendanceTable.setItems(students);
-        // Load courses and students as needed
-    }
-
-    // Implement methods to load students, save attendance, etc.
-
-    @FXML
-    private void goBack() {
-        try {
-            Parent view = FXMLLoader.load(getClass().getResource("/hellofx/fxml/Teachers.fxml"));
-            AnchorPane root = (AnchorPane) attendanceTable.getScene().getRoot();
-            root.getChildren().setAll(view);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

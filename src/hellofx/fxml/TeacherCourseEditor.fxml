@@ -1,21 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.TeacherCourseEditorController"
-      spacing="18" alignment="CENTER" style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
-    <Label text="Edit Courses" style="-fx-font-size: 24px; -fx-text-fill: #00337C;"/>
-    <TableView fx:id="courseTable" prefWidth="800">
-        <columns>
-            <TableColumn fx:id="codeColumn" text="Course Code"/>
-            <TableColumn fx:id="titleColumn" text="Title"/>
-            <TableColumn fx:id="descColumn" text="Description"/>
-        </columns>
-    </TableView>
-    <HBox spacing="10" alignment="CENTER">
-        <Button fx:id="addButton" text="Add"/>
-        <Button fx:id="editButton" text="Edit"/>
-        <Button fx:id="deleteButton" text="Delete"/>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="hellofx.controllers.TeacherCourseEditorController"
+      spacing="24" alignment="TOP_CENTER" 
+      style="-fx-background-color: #F8F9FA;"
+      prefWidth="1024" prefHeight="640">
+    
+    <padding><Insets top="32" right="32" bottom="32" left="32"/></padding>
+    
+    <Label text="Course Management" 
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+           
+    <HBox spacing="24">
+        <!-- Course Editor -->
+        <VBox spacing="24" HBox.hgrow="ALWAYS"
+              style="-fx-background-color: white; 
+                     -fx-background-radius: 12;
+                     -fx-padding: 24;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
+                     
+            <Label text="Course Details" 
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+                   
+            <GridPane vgap="16" hgap="16">
+                <TextField fx:id="courseNameField" promptText="Course Name"
+                          GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          style="-fx-pref-width: 300; -fx-font-size: 14px;"/>
+                          
+                <TextArea fx:id="courseDescField" promptText="Course Description"
+                         GridPane.columnIndex="0" GridPane.rowIndex="1"
+                         prefRowCount="3" wrapText="true"
+                         style="-fx-pref-width: 300; -fx-font-size: 14px;"/>
+                         
+                <ComboBox fx:id="semesterCombo" promptText="Select Semester"
+                         GridPane.columnIndex="0" GridPane.rowIndex="2"
+                         style="-fx-pref-width: 300;"/>
+            </GridPane>
+            
+            <HBox spacing="16">
+                <Button text="Save Course"
+                        style="-fx-background-color: #1a73e8;
+                               -fx-text-fill: white;
+                               -fx-font-size: 14px;
+                               -fx-padding: 8 24;
+                               -fx-background-radius: 4;
+                               -fx-cursor: hand;"/>
+                <Button text="Clear"
+                        style="-fx-background-color: #F1F3F4;
+                               -fx-text-fill: #202124;
+                               -fx-font-size: 14px;
+                               -fx-padding: 8 24;
+                               -fx-background-radius: 4;
+                               -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+        
+        <!-- Course List -->
+        <VBox spacing="16" HBox.hgrow="ALWAYS"
+              style="-fx-background-color: white; 
+                     -fx-background-radius: 12;
+                     -fx-padding: 24;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
+                     
+            <Label text="Available Courses" 
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+                   
+            <TableView fx:id="courseTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="nameColumn" text="Course Name" prefWidth="200"/>
+                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="300"/>
+                    <TableColumn fx:id="semesterColumn" text="Semester" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
     </HBox>
+    
     <Button text="Back" onAction="#goBack"
-        style="-fx-background-color: #353945; -fx-text-fill: #00337C; -fx-font-size: 16px; -fx-background-radius: 8;"/>
+            style="-fx-background-color: #F1F3F4;
+                   -fx-text-fill: #202124;
+                   -fx-font-size: 14px;
+                   -fx-padding: 8 24;
+                   -fx-background-radius: 4;
+                   -fx-cursor: hand;"/>
 </VBox>

@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.TeacherMarksController"
-      spacing="18" alignment="CENTER" style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
-    <Label text="Give Marks" style="-fx-font-size: 24px; -fx-text-fill: #00337C;"/>
-    <HBox spacing="10">
-        <ComboBox fx:id="courseCombo" promptText="Select Course"/>
-        <ComboBox fx:id="semCombo" promptText="Select Semester"/>
-    </HBox>
-    <TableView fx:id="marksTable" prefWidth="800">
-        <columns>
-            <TableColumn fx:id="rollColumn" text="Roll Number"/>
-            <TableColumn fx:id="nameColumn" text="Name"/>
-            <TableColumn fx:id="marksColumn" text="Marks"/>
-        </columns>
-    </TableView>
-    <Button fx:id="saveButton" text="Save Marks"/>
-    <Button text="Back" onAction="#goBack"
-        style="-fx-background-color: #353945; -fx-text-fill: #00337C; -fx-font-size: 16px; -fx-background-radius: 8;"/>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="hellofx.controllers.TeacherMarksController"
+      spacing="24" alignment="TOP_CENTER" 
+      style="-fx-background-color: #F8F9FA;"
+      prefWidth="1024" prefHeight="640">
     
+    <padding><Insets top="32" right="32" bottom="32" left="32"/></padding>
+    
+    <Label text="Student Marks" 
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #202124;"/>
+           
+    <VBox spacing="24" style="-fx-background-color: white; 
+                             -fx-background-radius: 12;
+                             -fx-padding: 24;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
+                             
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <ComboBox fx:id="courseCombo" promptText="Select Course"
+                      style="-fx-pref-width: 200; -fx-font-size: 14px;"/>
+            <ComboBox fx:id="semCombo" promptText="Select Semester"
+                      style="-fx-pref-width: 200; -fx-font-size: 14px;"/>
+        </HBox>
+        
+        <TableView fx:id="marksTable" VBox.vgrow="ALWAYS"
+                   style="-fx-font-size: 14px;">
+            <columns>
+                <TableColumn fx:id="rollColumn" text="Roll Number" prefWidth="150"/>
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="300"/>
+                <TableColumn fx:id="marksColumn" text="Marks" prefWidth="150"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+        
+        <HBox spacing="16" alignment="CENTER_RIGHT">
+            <Button fx:id="saveButton" text="Save Marks"
+                    style="-fx-background-color: #1a73e8;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-padding: 8 24;
+                           -fx-background-radius: 4;
+                           -fx-cursor: hand;"/>
+            <Button text="Back" onAction="#goBack"
+                    style="-fx-background-color: #F1F3F4;
+                           -fx-text-fill: #202124;
+                           -fx-font-size: 14px;
+                           -fx-padding: 8 24;
+                           -fx-background-radius: 4;
+                           -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
 </VBox>

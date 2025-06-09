@@ -11,37 +11,35 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TeachersController implements Initializable {
-
-    @FXML
-    private AnchorPane mainPane;
-    @FXML
-    private Button editCourseBtn;
-    @FXML
-    private Button manageStudentsBtn;
-    @FXML
-    private Button attendanceBtn;
-    @FXML
-    private Button marksBtn;
-    @FXML
-    private Button reportBtn;
+    @FXML private AnchorPane mainPane;
+    @FXML private Button editCourseBtn;
+    @FXML private Button manageStudentsBtn;
+    @FXML private Button attendanceBtn;
+    @FXML private Button marksBtn;
+    @FXML private Button reportBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadView("/hellofx/fxml/TeacherDashboardGrid.fxml"); // Show dashboard grid by default
-
-        editCourseBtn.setOnAction(e -> loadView("/hellofx/fxml/TeacherCourseEditor.fxml"));
-        manageStudentsBtn.setOnAction(e -> loadView("/hellofx/fxml/TeacherEnroll.fxml"));
-        attendanceBtn.setOnAction(e -> loadView("/hellofx/fxml/TeacherAttendance.fxml"));
-        marksBtn.setOnAction(e -> loadView("/hellofx/fxml/TeacherMarks.fxml"));
-        reportBtn.setOnAction(e -> loadView("/hellofx/fxml/TeacherFinal.fxml"));
+        editCourseBtn.setOnAction(e -> loadView("TeacherCourseEditor.fxml"));
+        manageStudentsBtn.setOnAction(e -> loadView("TeacherEnroll.fxml"));
+        attendanceBtn.setOnAction(e -> loadView("TeacherAttendance.fxml"));
+        marksBtn.setOnAction(e -> loadView("TeacherMarks.fxml"));
+        reportBtn.setOnAction(e -> loadView("TeacherFinal.fxml"));
     }
 
-    private void loadView(String fxmlPath) {
+    private void loadView(String fxmlName) {
         try {
-            Parent view = FXMLLoader.load(getClass().getResource(fxmlPath));
+            URL fxmlUrl = getClass().getResource("/hellofx/fxml/" + fxmlName);
+            if (fxmlUrl == null) {
+                System.err.println("Cannot find FXML file: " + fxmlName);
+                return;
+            }
+            
+            Parent view = FXMLLoader.load(fxmlUrl);
             mainPane.getChildren().setAll(view);
         } catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Error loading " + fxmlName + ": " + e.getMessage());
         }
     }
 }
