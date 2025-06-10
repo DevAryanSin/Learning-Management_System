@@ -30,29 +30,35 @@ A modern, modular, and professional Learning Management System (LMS) built with 
 ## Screenshots
 
 > **Welcome Page**
-![image](https://github.com/user-attachments/assets/29c7334c-bcbb-4a87-bca2-1cc473c37a06)
+> ![image](https://github.com/user-attachments/assets/c2617107-73f7-440a-a5aa-641b35ef79c7)
 > **Student Login**
-> ![image](https://github.com/user-attachments/assets/2bec90fd-8355-46e8-9217-50f723abae00)
+> ![image](https://github.com/user-attachments/assets/dafa4548-41f7-452c-a362-f1e2970f6f5e)
 > **Credentials Authentication**
-> ![image](https://github.com/user-attachments/assets/a8f4b74c-8e60-4ef8-bce0-ef85e05d0a1a)
+>![image](https://github.com/user-attachments/assets/eab95dff-e3d0-42b9-bd41-79411d2ff32e)
+> **Create Account**
+> ![image](https://github.com/user-attachments/assets/ef914de9-57c2-48ae-9a7d-8e343a2e53f1)
+> **Forgot Password**
+> ![image](https://github.com/user-attachments/assets/838c3367-0374-4c7d-a3da-9ccb6a121399)
+> **Password Reset**
+> ![image](https://github.com/user-attachments/assets/6bfe29a4-d7b3-4f7e-b286-b16c8b651428)
 > **Student Dashboard**
-> ![image](https://github.com/user-attachments/assets/be216237-5e95-4729-9808-d4a5195c7053)
+> ![image](https://github.com/user-attachments/assets/b270f39a-046a-4423-99af-35bf5c7dd337)
 > **Course Enrollment**
-> ![image](https://github.com/user-attachments/assets/90026d38-2599-436f-b900-4dc61be52f1b)
+> ![image](https://github.com/user-attachments/assets/316cb50a-8912-41de-a717-4c886d5863eb)
 > **Teacher Login**
-> ![image](https://github.com/user-attachments/assets/562a5722-e656-42eb-b956-61e5b7c6fd02)
+> ![image](https://github.com/user-attachments/assets/069a9204-6d77-4300-80fb-265d5434cc08)
 > **Teacher Dashboard**
-> ![image](https://github.com/user-attachments/assets/33c08b01-f6a1-4b61-b7ac-2f70f3c3555c)
+> ![image](https://github.com/user-attachments/assets/4f4b5f17-1d6c-4866-879b-456906b0852d)
 > **Course Management**
-> ![image](https://github.com/user-attachments/assets/b9cec1ec-be3a-4b0a-894a-829039e6d5ed)
+> ![image](https://github.com/user-attachments/assets/492a52a9-9250-4ce1-a49a-6601995d88bd)
 > **Assign Marks**
-> ![image](https://github.com/user-attachments/assets/a07f8ce4-3f22-4859-88ce-ebdece7c82a3)
+> ![image](https://github.com/user-attachments/assets/119e0361-d507-4eb3-9007-d7a510ea01f7)
 > **Assign Attendance**
-> ![image](https://github.com/user-attachments/assets/60be7480-ddb7-4103-9866-753b76a959ac)
+> ![image](https://github.com/user-attachments/assets/1ad4d29f-f6cd-460b-bd0b-3ef45acd7d00)
 > **Manage Students**
-> ![image](https://github.com/user-attachments/assets/940b94ad-3429-4b58-a913-9064c901d1e0)
+> ![image](https://github.com/user-attachments/assets/3d7b42e5-913d-45d3-b417-34b512f49da3)
 > **Generate Report**
-> ![image](https://github.com/user-attachments/assets/f0278615-947d-41d4-9a4e-16826cbe0762)
+> ![image](https://github.com/user-attachments/assets/d0888ea5-102a-4ea3-ad09-093ae856b2fb)
 
 
 
