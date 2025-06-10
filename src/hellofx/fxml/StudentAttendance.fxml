@@ -6,10 +6,13 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="hellofx.controllers.StudentAttendanceController"
             style="-fx-background-color: white;">
-    <VBox spacing="10" AnchorPane.topAnchor="0.0" 
-          AnchorPane.bottomAnchor="0.0" 
-          AnchorPane.leftAnchor="0.0" 
+            
+    <VBox spacing="20" alignment="CENTER"
+          AnchorPane.topAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
           AnchorPane.rightAnchor="0.0">
+          
         <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
@@ -17,11 +20,27 @@
         <Label text="Attendance Record" 
                style="-fx-font-size: 24px; -fx-text-fill: #00337C; -fx-font-weight: bold;"/>
                
+        <!-- Attendance Stats -->
+        <HBox spacing="20" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 5;">
+            <VBox spacing="5" alignment="CENTER" HBox.hgrow="ALWAYS">
+                <Label text="Total Classes" style="-fx-font-size: 14px; -fx-text-fill: #5f6368;"/>
+                <Label fx:id="totalClassesLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox spacing="5" alignment="CENTER" HBox.hgrow="ALWAYS">
+                <Label text="Present" style="-fx-font-size: 14px; -fx-text-fill: #2ecc71;"/>
+                <Label fx:id="presentClassesLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox spacing="5" alignment="CENTER" HBox.hgrow="ALWAYS">
+                <Label text="Absent" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c;"/>
+                <Label fx:id="absentClassesLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            </VBox>
+        </HBox>
+               
         <TableView fx:id="attendanceTable" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="courseColumn" text="Course"/>
-                <TableColumn fx:id="dateColumn" text="Date"/>
-                <TableColumn fx:id="statusColumn" text="Status"/>
+                <TableColumn fx:id="courseColumn" text="Course" prefWidth="200"/>
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="200"/>
+                <TableColumn fx:id="statusColumn" text="Status" prefWidth="200"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

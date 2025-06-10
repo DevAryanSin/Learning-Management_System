@@ -57,6 +57,7 @@ public class MergedDashboardCourseController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupSidebar();
+        setupContentViews();
         showDashboard();
         loadStudentDetails();
     }
@@ -87,14 +88,14 @@ public class MergedDashboardCourseController implements Initializable {
         header.setAlignment(Pos.CENTER_LEFT);
         header.setPadding(new Insets(8, 16, 8, 8));
         
-        // Navigation menu
+        // Navigation menu with updated titles matching controllers
         VBox menuItems = new VBox(8);
         menuItems.setPadding(new Insets(8, 8, 8, 16));
         menuItems.getChildren().addAll(
-            createMenuItem("Dashboard", "Overview and quick actions", this::showDashboard, "🏠"),
-            createMenuItem("Attendance", "View and manage attendance", this::showAttendance, "📊"),
-            createMenuItem("Courses", "Browse enrolled courses", this::showCourses, "📚"),
-            createMenuItem("Performance", "Track academic progress", this::showProgress, "📈")
+            createMenuItem("Dashboard", "Overview and statistics", this::showDashboard, "🏠"),
+            createMenuItem("Marks", "View academic marks", this::showMarks, "📊"),
+            createMenuItem("Attendance", "View attendance records", this::showAttendance, "📅"),
+            createMenuItem("Courses", "Enrolled courses", this::showCourses, "📚")
         );
         
         Separator separator = new Separator();
@@ -163,7 +164,7 @@ public class MergedDashboardCourseController implements Initializable {
         // Updated student data
         String fullName = "Aryan Singh";
         String email = "aryan.singh@gmail.com";
-        String dob = "2002-08-15";
+        String dob = "2005-03-25";
         
         studentNameLabel.setText("Welcome, " + fullName);
         studentFullNameLabel.setText(fullName);
@@ -189,6 +190,7 @@ public class MergedDashboardCourseController implements Initializable {
         GridPane grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
+        grid.setAlignment(Pos.CENTER); // Center the grid
         
         int col = 0;
         int row = 0;
@@ -333,29 +335,63 @@ public class MergedDashboardCourseController implements Initializable {
         performanceView.setVisible(false);
     }
 
-    @FXML
+    private void setupContentViews() {
+        // Center align all views
+        VBox[] views = {dashboardView, attendanceView, coursesView, performanceView};
+        
+        for (VBox view : views) {
+            // Set alignment and sizing for each view
+            view.setAlignment(Pos.CENTER);
+            view.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            view.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            
+            // Add padding for better spacing
+            view.setPadding(new Insets(20));
+            
+            // Make sure view takes full space
+            VBox.setVgrow(view, Priority.ALWAYS);
+            
+            // Set background color
+            view.setStyle("-fx-background-color: #f8f9fa;");
+        }
+        
+        // Set main content properties
+        mainContent.setAlignment(Pos.CENTER);
+        mainContent.setPadding(new Insets(20));
+        mainContent.setStyle("-fx-background-color: #f8f9fa;");
+    }
+
     private void showDashboard() {
         hideAllViews();
         dashboardView.setVisible(true);
+        // Center align dashboard content
+        dashboardView.setAlignment(Pos.CENTER);
+        loadStudentDetails();
+        loadPerformanceData();
     }
 
-    @FXML
+    private void showMarks() {
+        hideAllViews();
+        performanceView.setVisible(true);
+        // Center align performance content
+        performanceView.setAlignment(Pos.CENTER);
+        loadPerformanceData();
+    }
+
     private void showAttendance() {
         hideAllViews();
         attendanceView.setVisible(true);
+        // Center align attendance content
+        attendanceView.setAlignment(Pos.CENTER);
+        loadAttendance();
     }
 
-    @FXML
     private void showCourses() {
         hideAllViews();
         coursesView.setVisible(true);
-        loadCourses(); // Refresh courses when showing the view
-    }
-
-    @FXML
-    private void showProgress() {
-        hideAllViews();
-        performanceView.setVisible(true);
+        // Center align courses content
+        coursesView.setAlignment(Pos.CENTER);
+        loadCourses();
     }
 
     // Remove database-related imports and error handling
