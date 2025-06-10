@@ -28,23 +28,44 @@ public class StudentAttendanceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set up column factories
         courseColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCourse()));
         dateColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDate()));
         statusColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getStatus()));
+        
+        // Make sure table takes full width
+        attendanceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
+        // Make table visible and set preferred size
+        attendanceTable.setVisible(true);
+        attendanceTable.setPrefHeight(400);
+        attendanceTable.setPrefWidth(800);
+        
+        // Add styling to the table and cells
+        attendanceTable.setStyle("-fx-font-size: 14px; -fx-background-color: white;");
+        
+        // Style the columns
+        String columnStyle = "-fx-alignment: CENTER;";
+        courseColumn.setStyle(columnStyle);
+        dateColumn.setStyle(columnStyle);
+        statusColumn.setStyle(columnStyle);
+        
+        // Set items and load data
         attendanceTable.setItems(records);
         loadAttendance();
     }
 
     private void loadAttendance() {
-        String rollnum = "YOUR_ROLL_NUMBER";
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:lms.db")) {
-            PreparedStatement ps = conn.prepareStatement(
-                "SELECT courseCode, date, status FROM Attendance WHERE rollnum = ?");
-            ps.setString(1, rollnum);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                records.add(new Attendance(rs.getString("courseCode"), rs.getString("date"), rs.getString("status")));
-            }
-        } catch (Exception e) { e.printStackTrace(); }
+        // Add sample attendance data
+        records.addAll(
+            new Attendance("CS101", "2025-06-01", "Present"),
+            new Attendance("CS101", "2025-06-03", "Present"),
+            new Attendance("CS101", "2025-06-05", "Absent"),
+            new Attendance("MATH201", "2025-06-02", "Present"),
+            new Attendance("MATH201", "2025-06-04", "Present"),
+            new Attendance("PHY102", "2025-06-01", "Present"),
+            new Attendance("PHY102", "2025-06-03", "Absent"),
+            new Attendance("PHY102", "2025-06-05", "Present")
+        );
     }
 }

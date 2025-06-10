@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.controllers.StudentAttendanceController"
-      spacing="18" alignment="CENTER" style="-fx-background-color: #181A20;" prefWidth="1024" prefHeight="640">
-    <Label text="Attendance Record" style="-fx-font-size: 24px; -fx-text-fill: #00337C;"/>
-    <TableView fx:id="attendanceTable" prefWidth="800">
-        <columns>
-            <TableColumn fx:id="courseColumn" text="Course"/>
-            <TableColumn fx:id="dateColumn" text="Date"/>
-            <TableColumn fx:id="statusColumn" text="Status"/>
-        </columns>
-    </TableView>
-</VBox>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="hellofx.controllers.StudentAttendanceController"
+            style="-fx-background-color: white;">
+    <VBox spacing="10" AnchorPane.topAnchor="0.0" 
+          AnchorPane.bottomAnchor="0.0" 
+          AnchorPane.leftAnchor="0.0" 
+          AnchorPane.rightAnchor="0.0">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+        
+        <Label text="Attendance Record" 
+               style="-fx-font-size: 24px; -fx-text-fill: #00337C; -fx-font-weight: bold;"/>
+               
+        <TableView fx:id="attendanceTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="courseColumn" text="Course"/>
+                <TableColumn fx:id="dateColumn" text="Date"/>
+                <TableColumn fx:id="statusColumn" text="Status"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+</AnchorPane>

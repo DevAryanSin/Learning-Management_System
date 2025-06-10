@@ -34,6 +34,7 @@ public class MergedDashboardCourseController implements Initializable {
     @FXML private Label studentEmailLabel;
     @FXML private Label studentDobLabel;
     @FXML private Label studentNameLabel;
+    @FXML private PieChart performancePieChart;
 
     // Add this class for subject performance data
     public static class SubjectPerformance {
@@ -159,10 +160,10 @@ public class MergedDashboardCourseController implements Initializable {
     }
 
     private void loadStudentDetails() {
-        // Default student data
-        String fullName = "John Doe";
-        String email = "john.doe@example.com";
-        String dob = "2000-01-01";
+        // Updated student data
+        String fullName = "Aryan Singh";
+        String email = "aryan.singh@gmail.com";
+        String dob = "2002-08-15";
         
         studentNameLabel.setText("Welcome, " + fullName);
         studentFullNameLabel.setText(fullName);
@@ -171,12 +172,12 @@ public class MergedDashboardCourseController implements Initializable {
     }
 
     private void loadCourses() {
-        // Default course data
         List<Course> courses = Arrays.asList(
-            new Course("Computer Science 101", "Introduction to Programming", "Prof. Smith"),
-            new Course("Mathematics 201", "Advanced Calculus", "Prof. Johnson"),
-            new Course("Physics 101", "Basic Physics", "Prof. Brown"),
-            new Course("English 101", "Academic Writing", "Prof. Davis")
+            new Course("Data Structures", "Advanced data structures and algorithms", "Prof. Sharma"),
+            new Course("Database Systems", "DBMS concepts and SQL", "Prof. Gupta"),
+            new Course("Operating Systems", "OS principles and design", "Prof. Kumar"),
+            new Course("Computer Networks", "Network protocols and architecture", "Prof. Verma"),
+            new Course("Software Engineering", "Software development lifecycle", "Prof. Reddy")
         );
         
         displayCourses(courses);
@@ -242,30 +243,36 @@ public class MergedDashboardCourseController implements Initializable {
     }
 
     private void loadPerformanceData() {
-        // Default performance data
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("Mathematics", 85),
-            new PieChart.Data("Physics", 78),
-            new PieChart.Data("Chemistry", 92),
-            new PieChart.Data("Computer Science", 95)
+            new PieChart.Data("Data Structures", 92),
+            new PieChart.Data("Database Systems", 88),
+            new PieChart.Data("Operating Systems", 85),
+            new PieChart.Data("Computer Networks", 90),
+            new PieChart.Data("Software Engineering", 87)
         );
         
         if (performancePieChart != null) {
             performancePieChart.setData(pieChartData);
-            performancePieChart.setTitle("Subject Performance");
-        }
-    }
-
-    @FXML
-    private void toggleSidebar() {
-        TranslateTransition transition = new TranslateTransition(Duration.millis(200), sidebar);
-        
-        if (isSidebarCollapsed) {
-            // Expand
-            sidebar.setPrefWidth(EXPANDED_WIDTH);
-            transition.setToX(0);
+            performancePieChart.setTitle("Course Performance");
             
-            // Restore menu items
+            // Add percentage labels
+            pieChartData.forEach(data -> {
+                data.setName(data.getName() + " (" + (int)data.getPieValue() + "%)");
+            });
+        }
+    }    @FXML
+    private void toggleSidebar() {
+        double startWidth = sidebar.getWidth();
+        double endWidth = isSidebarCollapsed ? EXPANDED_WIDTH : COLLAPSED_WIDTH;
+        
+        // Create an animation to smoothly change the width
+        sidebar.setMinWidth(endWidth);
+        sidebar.setPrefWidth(endWidth);
+        sidebar.setMaxWidth(endWidth);
+
+        // Update the menu items immediately
+        if (isSidebarCollapsed) {
+            // Expanding - restore text
             sidebar.getChildren().stream()
                 .filter(node -> node instanceof VBox)
                 .flatMap(vbox -> ((VBox) vbox).getChildren().stream())
@@ -273,21 +280,24 @@ public class MergedDashboardCourseController implements Initializable {
                 .forEach(btn -> {
                     Button button = (Button) btn;
                     VBox content = (VBox) button.getGraphic();
-                    Label titleLabel = (Label) content.getChildren().get(0);
-                    Label descLabel = (Label) content.getChildren().get(1);
-                    
-                    // Restore original text and spacing
-                    String icon = titleLabel.getGraphic().toString();
-                    titleLabel.setText(button.getUserData().toString()); // Get stored title
-                    titleLabel.setGraphicTextGap(12);
-                    descLabel.setVisible(true);
+                    if (content != null && !content.getChildren().isEmpty()) {
+                        Label titleLabel = (Label) content.getChildren().get(0);
+                        Label descLabel = content.getChildren().size() > 1 ? 
+                                        (Label) content.getChildren().get(1) : null;
+                        
+                        // Restore text
+                        if (button.getUserData() != null) {
+                            titleLabel.setText(button.getUserData().toString());
+                        }
+                        titleLabel.setGraphicTextGap(12);
+                        if (descLabel != null) {
+                            descLabel.setVisible(true);
+                            descLabel.setManaged(true);
+                        }
+                    }
                 });
         } else {
-            // Collapse
-            sidebar.setPrefWidth(COLLAPSED_WIDTH);
-            transition.setToX(0);
-            
-            // Show only icons
+            // Collapsing - show only icons
             sidebar.getChildren().stream()
                 .filter(node -> node instanceof VBox)
                 .flatMap(vbox -> ((VBox) vbox).getChildren().stream())
@@ -295,26 +305,24 @@ public class MergedDashboardCourseController implements Initializable {
                 .forEach(btn -> {
                     Button button = (Button) btn;
                     VBox content = (VBox) button.getGraphic();
-                    Label titleLabel = (Label) content.getChildren().get(0);
-                    Label descLabel = (Label) content.getChildren().get(1);
-                    
-                    // Store the full title for later restoration
-                    button.setUserData(titleLabel.getText());
-                    
-                    // Show only icon
-                    titleLabel.setGraphicTextGap(0);
-                    titleLabel.setText("");
-                    descLabel.setVisible(false);
+                    if (content != null && !content.getChildren().isEmpty()) {
+                        Label titleLabel = (Label) content.getChildren().get(0);
+                        Label descLabel = content.getChildren().size() > 1 ? 
+                                        (Label) content.getChildren().get(1) : null;
+                        
+                        // Store current text and show only icon
+                        button.setUserData(titleLabel.getText());
+                        titleLabel.setText("");
+                        titleLabel.setGraphicTextGap(0);
+                        if (descLabel != null) {
+                            descLabel.setVisible(false);
+                            descLabel.setManaged(false);
+                        }
+                    }
                 });
         }
         
-        transition.setOnFinished(e -> {
-            // Ensure sidebar stays visible
-            sidebar.setVisible(true);
-            sidebar.setManaged(true);
-        });
-        
-        transition.play();
+        // Update state
         isSidebarCollapsed = !isSidebarCollapsed;
     }
 
@@ -356,5 +364,20 @@ public class MergedDashboardCourseController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private void loadAttendance() {
+        records.addAll(
+            new Attendance("Data Structures", "2025-06-01", "Present"),
+            new Attendance("Database Systems", "2025-06-01", "Present"),
+            new Attendance("Operating Systems", "2025-06-02", "Present"),
+            new Attendance("Computer Networks", "2025-06-02", "Absent"),
+            new Attendance("Software Engineering", "2025-06-03", "Present"),
+            new Attendance("Data Structures", "2025-06-03", "Present"),
+            new Attendance("Database Systems", "2025-06-04", "Present"),
+            new Attendance("Operating Systems", "2025-06-04", "Present"),
+            new Attendance("Computer Networks", "2025-06-05", "Present"),
+            new Attendance("Software Engineering", "2025-06-05", "Present")
+        );
     }
 }
